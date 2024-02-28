@@ -12,6 +12,7 @@ const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 function App(): JSX.Element {
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
+  console.log(fetchPhotoes);
 
   useEffect(() => {
     const getImages = async () => {
