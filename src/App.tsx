@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useGalleryStore } from "./store";
+import Home from "./pages/Home";
+import Header from "./components/Header";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
@@ -23,9 +25,16 @@ function App(): JSX.Element {
   }, []);
 
   return (
-    <MainContainer>
-      <GlobalStyles />
-    </MainContainer>
+    <Router>
+      <MainContainer>
+        <GlobalStyles />
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/History" element={<History />} />
+        </Routes>
+      </MainContainer>
+    </Router>
   );
 }
 
