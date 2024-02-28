@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useGalleryStore } from "./store";
 import Home from "./pages/Home";
 import Header from "./components/Header";
+import History from "./pages/History";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
