@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useGalleryStore } from "./store";
