@@ -5,7 +5,7 @@ import { ChangeEvent } from "react";
 export default function InputField() {
   const inputValue = useGalleryStore((state) => state.inputValue);
   const setInputValue = useGalleryStore((state) => state.setInputValue);
-  console.log(inputValue);
+
   return (
     <Input
       type="text"
