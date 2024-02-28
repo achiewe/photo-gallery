@@ -6,7 +6,6 @@ export default function Header() {
   return (
     <HeaderContainer>
       <Link to="/">Home</Link>
-
       <Link to="/History">History</Link>
     </HeaderContainer>
   );

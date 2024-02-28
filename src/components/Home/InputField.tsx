@@ -1,19 +1,40 @@
+import { useState } from "react";
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { ChangeEvent } from "react";
 
 export default function InputField() {
+  const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const inputValue = useGalleryStore((state) => state.inputValue);
   const setInputValue = useGalleryStore((state) => state.setInputValue);
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+
+    // Clear any existing timeout
+    if (timeoutId) {
+      window.clearTimeout(timeoutId);
+    }
+
+    // Set a new timeout to trigger the search after 500 milliseconds
+    const newTimeoutId = window.setTimeout(() => {
+      // Perform search operation here
+      console.log("Perform search for:", value);
+    }, 3000);
+
+    // Update the state with the new timeout ID
+    setTimeoutId(newTimeoutId);
+
+    // Update input value
+    setInputValue(value);
+  };
 
   return (
     <Input
       type="text"
-      placeholder="ძებნა"
+      placeholder="Search"
       value={inputValue}
-      onChange={(e: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(e.target.value);
-      }}
+      onChange={handleInputChange}
     ></Input>
   );
 }

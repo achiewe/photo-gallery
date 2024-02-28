@@ -23,12 +23,4 @@ const GalleryContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 10px;
-
-  .imageContainer {
-    width: 100px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 `;
