@@ -5,9 +5,13 @@ export default function PhotoGallery(): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   return (
     <GalleryContainer>
-      {/* {fetchPhotoes.map(photo) => {
-        return   <div  className="imageContainer"></div>
-      } } */}
+      {fetchPhotoes.map((photo) => {
+        return (
+          <div key={photo.id} className="imageContainer">
+            <img src={photo.regularUrl} />
+          </div>
+        );
+      })}
     </GalleryContainer>
   );
 }
