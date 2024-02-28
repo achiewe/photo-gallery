@@ -61,8 +61,8 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
   gap: 40px;
-  padding: 10px;
   background-color: #f2f2f2;
 `;
 export default App;

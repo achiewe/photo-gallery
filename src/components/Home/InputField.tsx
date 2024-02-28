@@ -10,4 +10,5 @@ const Input = styled.input`
   outline: none;
   padding-left: 10px;
   border: none;
+  border-radius: 10px;
 `;
