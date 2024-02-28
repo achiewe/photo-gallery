@@ -1,7 +1,21 @@
 import styled from "styled-components";
+import { useGalleryStore } from "../../store";
+import { ChangeEvent } from "react";
 
 export default function InputField() {
-  return <Input type="text" placeholder="ძებნა"></Input>;
+  const inputValue = useGalleryStore((state) => state.inputValue);
+  const setInputValue = useGalleryStore((state) => state.setInputValue);
+  console.log(inputValue);
+  return (
+    <Input
+      type="text"
+      placeholder="ძებნა"
+      value={inputValue}
+      onChange={(e: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(e.target.value);
+      }}
+    ></Input>
+  );
 }
 
 const Input = styled.input`
