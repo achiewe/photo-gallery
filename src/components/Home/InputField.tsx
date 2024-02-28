@@ -7,6 +7,9 @@ export default function InputField() {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const inputValue = useGalleryStore((state) => state.inputValue);
   const setInputValue = useGalleryStore((state) => state.setInputValue);
+  const setInputValueArray = useGalleryStore(
+    (state) => state.setInputValueArray
+  );
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -27,6 +30,7 @@ export default function InputField() {
 
     // Update input value
     setInputValue(value);
+    setInputValueArray([value]);
   };
 
   return (
