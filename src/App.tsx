@@ -2,9 +2,13 @@ import styled from "styled-components";
 import GlobalStyles from "./GlobalStyles";
 import axios from "axios";
 import { useEffect } from "react";
+import { useGalleryStore } from "./store";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
+  const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
+  const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
+
   useEffect(() => {
     const getImages = async () => {
       const response = await axios.get(
@@ -12,7 +16,7 @@ function App(): JSX.Element {
       );
 
       const data = response.data;
-      console.log(data);
+      setFetchPhotoes(data);
     };
     getImages();
   }, []);
