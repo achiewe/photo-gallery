@@ -10,8 +10,7 @@ const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 export default function PhotoGallery(): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const inputValue = useGalleryStore((state) => state.inputValue);
-  const page = 1; // Set your desired page number
-  const perPage = 20; // Set your desired number of photos per page
+  const page = useGalleryStore((state) => state.page);
 
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
   const { data: photoes, isLoading: photoesLoading } = useQuery(
