@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import PhotoGallery from "../components/Home/PhotoGallery";
@@ -9,6 +9,7 @@ import { useGalleryStore } from "../store";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 export default function Home(): JSX.Element {
+  const [perPage, setPerPage] = useState<number>(20);
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const page = useGalleryStore((state) => state.page);
@@ -16,28 +17,36 @@ export default function Home(): JSX.Element {
   const loading = useGalleryStore((state) => state.loading);
   const setLoading = useGalleryStore((state) => state.setLoading);
 
-  useEffect(() => {
-    console.log("useEffect executed");
-    console.log("fetchPhotoes length:", fetchPhotoes.length);
-    // Fetch images only if no images are already fetched or if it's the first render
-    if (fetchPhotoes.length === 0 && page === 1) {
-      fetchImages();
-    }
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [fetchPhotoes.length, page]); // Updated dependency array
+  console.log(page);
+
+  // useEffect(() => {
+  //   console.log("useEffect executed");
+  //   console.log("fetchPhotoes length:", fetchPhotoes.length);
+  //   // Fetch images only if no images are already fetched or if it's the first render
+  //   if (fetchPhotoes.length === 0 && page === 1) {
+  //     fetchImages();
+  //   }
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [fetchPhotoes.length, page]); // Updated dependency array
 
   console.log(fetchPhotoes, "mevar fetch potoebi");
 
   const fetchImages = async () => {
     try {
       setLoading(true);
-      const perPage = 20; // Always fetch 20 photos per request
-      console.log(perPage, "mevar raodenoba");
+      let perPageValue = perPage; // Set perPageValue based on the state
+      if (page === 1) {
+        perPageValue = 20; // Set perPage to 20 for the initial page
+      } else {
+        perPageValue = 40; // Set perPage to 40 for subsequent pages
+      }
+      console.log(perPageValue, "mevar raodenoba");
+
       const response = await axios.get(
-        `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
+        `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPageValue}`
       );
       const processedData: PhotoesType[] = response.data.map((photo: any) => ({
         downloads: photo.downloads,
@@ -49,11 +58,7 @@ export default function Home(): JSX.Element {
         description: photo.description,
       }));
       if (page === 1) {
-        // If it's the first page, set fetched photos directly
         setFetchPhotoes(processedData);
-      } else {
-        // For subsequent pages, append new photos to existing ones
-        setFetchPhotoes([...fetchPhotoes, ...processedData]);
       }
     } catch (error) {
       console.error("Error fetching images:", error);
@@ -62,18 +67,23 @@ export default function Home(): JSX.Element {
     }
   };
 
-  const handleScroll = () => {
-    console.log("handleScroll called");
-    const windowHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const bottomThreshold = 100; // Adjust as needed
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
-    if (windowHeight + scrollTop > docHeight - bottomThreshold && !loading) {
-      fetchImages();
-      setPage(page + 1); // Increment the page state by 1
-    }
-  };
+  // const handleScroll = () => {
+  //   console.log("handleScroll called");
+  //   const windowHeight = window.innerHeight;
+  //   const docHeight = document.documentElement.scrollHeight;
+  //   const scrollTop = document.documentElement.scrollTop;
+  //   const bottomThreshold = 100; // Adjust as needed
+
+  //   if (windowHeight + scrollTop > docHeight - bottomThreshold && !loading) {
+  //     fetchImages();
+  //     setPage(page + 1); // Increment the page state by 1
+  //     setPerPage(perPage + 20)
+  //   }
+  // };
 
   return (
     <HomeContainer>
