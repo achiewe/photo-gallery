@@ -6,18 +6,22 @@ import Header from "./components/Header";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import History from "./pages/History";
 
+const queryClient = new QueryClient();
+
 function App(): JSX.Element {
   return (
-    <Router>
-      <MainContainer>
-        <GlobalStyles />
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/History" element={<History />} />
-        </Routes>
-      </MainContainer>
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <MainContainer>
+          <GlobalStyles />
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/History" element={<History />} />
+          </Routes>
+        </MainContainer>
+      </Router>
+    </QueryClientProvider>
   );
 }
 
