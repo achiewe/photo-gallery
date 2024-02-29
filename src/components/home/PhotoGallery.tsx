@@ -3,7 +3,6 @@ import { useGalleryStore } from "../../store";
 import { PhotoesType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
-import { useEffect } from "react";
 
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
@@ -11,6 +10,7 @@ export default function PhotoGallery(): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const inputValue = useGalleryStore((state) => state.inputValue);
   const page = useGalleryStore((state) => state.page);
+  const perPage = useGalleryStore((state) => state.perPage);
 
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
   const { data: photoes, isLoading: photoesLoading } = useQuery(
