@@ -23,6 +23,7 @@ export default function InputField() {
     const newTimeoutId = window.setTimeout(() => {
       // Perform search operation here
       console.log("Perform search for:", value);
+      setInputValueArray([value]);
     }, 2000);
 
     // Update the state with the new timeout ID
@@ -30,7 +31,6 @@ export default function InputField() {
 
     // Update input value
     setInputValue(value);
-    setInputValueArray([value]);
   };
 
   return (

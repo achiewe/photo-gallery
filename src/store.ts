@@ -14,8 +14,10 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   fetchPhotoes: [],
   inputValue: "",
   inputValueArray: [],
-  setInputValueArray: (newArray: string[]) => {
-    set({ inputValueArray: newArray });
+  setInputValueArray: (newArray) => {
+    set((state) => ({
+      inputValueArray: [...state.inputValueArray, ...newArray],
+    }));
   },
   setFetchPhotoes: (newphotoes: PhotoesType[]) => {
     set({ fetchPhotoes: newphotoes });
