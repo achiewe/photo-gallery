@@ -5,6 +5,8 @@ type galleryStore = {
   fetchPhotoes: PhotoesType[];
   inputValue: string;
   inputValueArray: string[];
+  page: number;
+  setPage: (newPage: number) => void;
   setInputValueArray: (newArray: string[]) => void;
   setInputValue: (newValue: string) => void;
   setFetchPhotoes: (newphotoes: PhotoesType[]) => void;
@@ -13,7 +15,11 @@ type galleryStore = {
 export const useGalleryStore = create<galleryStore>((set) => ({
   fetchPhotoes: [],
   inputValue: "",
+  page: 1,
   inputValueArray: [],
+  setPage: (newPage: number) => {
+    set({ page: newPage });
+  },
   setInputValueArray: (newArray) => {
     set((state) => ({
       inputValueArray: [...state.inputValueArray, ...newArray],
