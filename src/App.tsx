@@ -19,6 +19,7 @@ function App(): JSX.Element {
             <Route path="/" element={<Home />} />
             <Route path="/History" element={<History />} />
           </Routes>
+          <div className="overlay"></div>
         </MainContainer>
       </Router>
     </QueryClientProvider>
@@ -32,8 +33,15 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 20px;
+  position: relative;
   gap: 40px;
   background-color: #f2f2f2;
+
+  /* .overlay {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+  } */
 `;
 export default App;

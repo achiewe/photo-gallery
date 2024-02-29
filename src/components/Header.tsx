@@ -20,6 +20,7 @@ const HeaderContainer = styled.header`
   align-items: center;
   justify-content: center;
   background-color: #bfbfbf;
+  margin-top: 20px;
   border-radius: 20px;
   gap: 30px;
 

@@ -3,6 +3,7 @@ import { useGalleryStore } from "../../store";
 import { PhotoesType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
+import ModalWindow from "./ModalWindow";
 
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
@@ -63,6 +64,7 @@ export default function PhotoGallery(): JSX.Element {
           <img src={photo.urls.thumb} alt={photo.description} />
         </div>
       ))}
+      <ModalWindow />
     </GalleryContainer>
   );
 }

@@ -33,9 +33,17 @@ export const useGalleryStore = create<galleryStore>((set) => ({
     set((state) => ({ ...state, page: newPage }));
   },
   setInputValueArray: (newArray) => {
-    set((state) => ({
-      inputValueArray: [...state.inputValueArray, ...newArray],
-    }));
+    if (newArray.length > 0) {
+      set((state) => {
+        // Filter out values that already exist in state.inputValueArray
+        const uniqueValues = newArray.filter(
+          (value) => !state.inputValueArray.includes(value)
+        );
+        return {
+          inputValueArray: [...state.inputValueArray, ...uniqueValues],
+        };
+      });
+    }
   },
   setFetchPhotoes: (newPhotoes: PhotoesType[]) => {
     set((state) => ({ fetchPhotoes: [...state.fetchPhotoes, ...newPhotoes] }));
