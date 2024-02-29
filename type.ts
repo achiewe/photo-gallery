@@ -5,5 +5,5 @@ export interface PhotoesType {
   id: string;
   regularUrl: string;
   altDescription: string | null;
-  description: string | null;
+  description: string | undefined;
 }

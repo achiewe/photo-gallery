@@ -9,6 +9,8 @@ const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 export default function Home(): JSX.Element {
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
+  const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
+
   useEffect(() => {
     const getImages = async () => {
       try {
@@ -23,6 +25,8 @@ export default function Home(): JSX.Element {
             likes: photo.likes,
             id: photo.id,
             regularUrl: photo.urls.thumb,
+            altDescription: photo.alt_description,
+            description: photo.description,
           })
         );
 
