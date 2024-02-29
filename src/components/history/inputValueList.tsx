@@ -33,7 +33,7 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 10px;
+    padding-top: 20px;
     cursor: pointer;
 
     hr {
