@@ -10,6 +10,9 @@ export default function InputField() {
   const setInputValueArray = useGalleryStore(
     (state) => state.setInputValueArray
   );
+  const inputValueArray = useGalleryStore((state) => state.inputValueArray);
+
+  console.log(inputValueArray);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -23,7 +26,9 @@ export default function InputField() {
     const newTimeoutId = window.setTimeout(() => {
       // Perform search operation here
       console.log("Perform search for:", value);
-      setInputValueArray([value]);
+      if (value.trim() !== "") {
+        setInputValueArray([value]);
+      }
     }, 2000);
 
     // Update the state with the new timeout ID
