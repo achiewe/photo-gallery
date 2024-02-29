@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import PhotoGallery from "../components/Home/PhotoGallery";
-import InputField from "../components/Home/InputField";
+import PhotoGallery from "../components/home/PhotoGallery";
+import InputField from "../components/home/InputField";
 import { PhotoesType } from "../../type";
 import { useGalleryStore } from "../store";
 
