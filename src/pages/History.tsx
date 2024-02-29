@@ -14,7 +14,7 @@ export default function History() {
 }
 
 const MainCont = styled.div<{ inputValueArray: string[] }>`
-  width: 200px;
+  width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
