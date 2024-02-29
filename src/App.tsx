@@ -31,6 +31,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
   padding-top: 20px;
   gap: 40px;
   background-color: #f2f2f2;

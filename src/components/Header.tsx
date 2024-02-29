@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header() {
   const path = window.location.pathname;
+  const navigate = useNavigate();
   return (
     <HeaderContainer>
       <Link to="/">Home</Link>
@@ -27,5 +28,9 @@ const HeaderContainer = styled.header`
     color: white;
     font-size: 18px;
     font-weight: 600;
+  }
+
+  a:hover {
+    color: #000000;
   }
 `;
