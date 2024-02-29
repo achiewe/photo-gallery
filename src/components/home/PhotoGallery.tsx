@@ -47,7 +47,7 @@ export default function PhotoGallery(): JSX.Element {
   if (!photoes) {
     return (
       <GalleryContainer>
-        {fetchPhotoes.map((photo, index) => (
+        {fetchPhotoes.map((photo: PhotoesType, index: number) => (
           <div key={index} className="imageContainer">
             <img src={photo.regularUrl} alt={photo.description} />
           </div>
