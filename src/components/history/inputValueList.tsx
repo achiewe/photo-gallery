@@ -25,7 +25,7 @@ const ListContainer = styled.div`
   border-radius: 10px;
 
   :hover {
-    background-color: gray;
+    background-color: #d9d9d9;
   }
 
   .hrInputDiv {
@@ -33,7 +33,8 @@ const ListContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 20px;
+    padding-top: 10px;
+    gap: 10px;
     cursor: pointer;
 
     hr {
