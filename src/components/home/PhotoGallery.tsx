@@ -53,8 +53,6 @@ export default function PhotoGallery(): JSX.Element {
     );
   }
 
-  console.log(photoes, "me var potoebi");
-
   const searchData = photoes.results;
 
   return (
