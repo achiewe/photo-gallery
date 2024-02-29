@@ -3,6 +3,7 @@ import GlobalStyles from "./GlobalStyles";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Header from "./components/Header";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import History from "./pages/History";
 
 function App(): JSX.Element {

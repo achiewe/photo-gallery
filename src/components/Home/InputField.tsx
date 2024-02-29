@@ -10,9 +10,6 @@ export default function InputField() {
   const setInputValueArray = useGalleryStore(
     (state) => state.setInputValueArray
   );
-  const inputValueArray = useGalleryStore((state) => state.inputValueArray);
-
-  console.log(inputValueArray);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
