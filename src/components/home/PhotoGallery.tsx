@@ -13,9 +13,6 @@ export default function PhotoGallery(): JSX.Element {
   const page = 1; // Set your desired page number
   const perPage = 20; // Set your desired number of photos per page
 
-  // Example usage
-  useEffect(() => {});
-
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
   const { data: photoes, isLoading: photoesLoading } = useQuery(
     queryKey,
@@ -77,6 +74,7 @@ const GalleryContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: relative;
   gap: 20px;
 
   img {
