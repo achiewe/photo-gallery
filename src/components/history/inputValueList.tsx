@@ -8,6 +8,7 @@ interface inputListProps {
 
 export default function inputList({ queryPhotoes }: inputListProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
+  console.log(queryPhotoes);
   return (
     <ListContainer>
       {inputValueArray.map((inputText, index) => (
