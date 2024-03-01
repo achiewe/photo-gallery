@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
-import { PhotoesType } from "../../../type";
+import { PhotoesType, SearchDataType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
 import ModalWindow from "./ModalWindow";
@@ -21,7 +21,6 @@ export default function PhotoGallery(): JSX.Element {
 
     async () => {
       try {
-        console.log(queryKey, "asdasd");
         if (inputValue !== "") {
           const response = await axios.get(
             `https://api.unsplash.com/search/photos/?client_id=${accessKey}&page=${page}&per_page=${perPage}&query=${inputValue}`,
@@ -46,7 +45,6 @@ export default function PhotoGallery(): JSX.Element {
         console.error("Error fetching photos:", error);
         throw error;
       }
-      console.log(photoes, "asdasd");
     }
   );
 
@@ -73,18 +71,20 @@ export default function PhotoGallery(): JSX.Element {
   const searchData = photoes.results;
   const handleImageClick = (identifier: string) => {
     const filteredSearchData = searchData.filter(
-      (photo: any) => photo.id === identifier
+      (photo: SearchDataType) => photo.id === identifier
     );
     setFilteredImages(filteredSearchData);
   };
 
+  console.log(photoes.results, "mevar resulti");
+
   return (
     <GalleryContainer>
-      {searchData.map((photo: any, index: number) => (
+      {searchData.map((photo: SearchDataType, index: number) => (
         <div key={index} className="imageContainer">
           <img
             src={photo.urls.thumb}
-            alt={photo.description}
+            alt={photo.alt_description}
             onClick={() => handleImageClick(photo.id)}
           />
         </div>
