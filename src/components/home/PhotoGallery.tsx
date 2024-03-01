@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
-import { useQuery } from "react-query";
-import axios from "axios";
-import ModalWindow from "./ModalWindow";
 
 interface PhotoGalleryProps {
   photoes: SearchDataType[];
