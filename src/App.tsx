@@ -22,7 +22,7 @@ function App(): JSX.Element {
     : (document.body.style.overflow = "auto");
 
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
-  const { data: photoes, isLoading: photoesLoading } = useQuery(
+  const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
     queryKey,
 
     async () => {
@@ -51,9 +51,17 @@ function App(): JSX.Element {
         <Routes>
           <Route
             path="/"
-            element={<Home photoes={photoes} photoesLoading={photoesLoading} />}
+            element={
+              <Home
+                queryPhotoes={queryPhotoes}
+                photoesLoading={photoesLoading}
+              />
+            }
           />
-          <Route path="/History" element={<History photoes={photoes} />} />
+          <Route
+            path="/History"
+            element={<History queryPhotoes={queryPhotoes} />}
+          />
         </Routes>
         <ModalWindow />
         <div className="overlay"></div>

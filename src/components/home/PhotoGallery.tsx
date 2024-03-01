@@ -3,12 +3,12 @@ import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
 
 interface PhotoGalleryProps {
-  photoes: SearchDataType[];
+  queryPhotoes: SearchDataType[];
   photoesLoading: boolean;
 }
 
 export default function PhotoGallery({
-  photoes,
+  queryPhotoes,
   photoesLoading,
 }: PhotoGalleryProps): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
@@ -18,8 +18,8 @@ export default function PhotoGallery({
   // const searchData = photoes.results || [];
 
   const handleImageClick = (identifier: string) => {
-    if (photoes && photoes.length > 0) {
-      const filteredSearchData = photoes.filter(
+    if (queryPhotoes && queryPhotoes.length > 0) {
+      const filteredSearchData = queryPhotoes.filter(
         (photo: SearchDataType) => photo.id === identifier
       );
       setFilteredImages(filteredSearchData);
@@ -36,7 +36,7 @@ export default function PhotoGallery({
     return <div>Loading...</div>;
   }
 
-  if (!photoes) {
+  if (!queryPhotoes) {
     return (
       <GalleryContainer>
         {fetchPhotoes.map((photo: SearchDataType, index: number) => (
@@ -54,11 +54,9 @@ export default function PhotoGallery({
     );
   }
 
-  console.log(photoes);
-
   return (
     <GalleryContainer>
-      {photoes.map((photo: SearchDataType, index: number) => (
+      {queryPhotoes.map((photo: SearchDataType, index: number) => (
         <div key={index} className="imageContainer">
           <img
             src={photo.urls.thumb}

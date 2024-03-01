@@ -5,10 +5,10 @@ import InputList from "../components/history/inputValueList"; // Import the comp
 import { SearchDataType } from "../../type";
 
 interface HistoryProps {
-  photoes: SearchDataType[];
+  queryPhotoes: SearchDataType[];
 }
 
-export default function History({ photoes }: HistoryProps) {
+export default function History({ queryPhotoes }: HistoryProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (

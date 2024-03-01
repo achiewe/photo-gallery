@@ -9,12 +9,12 @@ import { SearchDataType } from "../../type";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 interface HomeProps {
-  photoes: SearchDataType[];
+  queryPhotoes: SearchDataType[];
   photoesLoading: boolean;
 }
 
 export default function Home({
-  photoes,
+  queryPhotoes,
   photoesLoading,
 }: HomeProps): JSX.Element {
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
@@ -26,14 +26,13 @@ export default function Home({
   const filteredImages = useGalleryStore((state) => state.filteredImages);
 
   useEffect(() => {
-    fetchImages(); // Initial fetch on component mount
-
+    fetchImages();
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [page]); // Update dependency to include page
+  }, []); // Effect runs only once on component mount
 
   const fetchImages = async () => {
     try {
@@ -44,7 +43,18 @@ export default function Home({
         `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
       );
 
-      setFetchPhotoes(response.data);
+      console.log("API Response:", response);
+
+      // Filter out duplicates before updating state
+      const newPhotos = response.data.filter((photo: SearchDataType) => {
+        // Check if any existing photo has the same id as the new photo
+        return !fetchPhotoes.some(
+          (existingPhoto: SearchDataType) => existingPhoto.id === photo.id
+        );
+      });
+
+      // Append new photos to existing photos
+      setFetchPhotoes(newPhotos);
     } catch (error) {
       console.error("Error fetching images:", error);
     } finally {
@@ -55,17 +65,22 @@ export default function Home({
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
 
-    const bottomThreshold = 100; // Adjust as needed
+    const bottomThreshold = 100;
 
+    // Check if user has scrolled to the bottom of the page
     if (scrollTop + clientHeight > scrollHeight - bottomThreshold && !loading) {
-      setPage(page + 1); // Increment the page state by 1
+      setPage(page + 1); // Increment the page state to fetch next page of images
     }
   };
 
+  console.log(fetchPhotoes, "fetchPhotoes");
   return (
     <HomeContainer>
       <InputField />
-      <PhotoGallery photoes={photoes} photoesLoading={photoesLoading} />
+      <PhotoGallery
+        queryPhotoes={queryPhotoes}
+        photoesLoading={photoesLoading}
+      />
       {loading && <Loading>Loading...</Loading>}
     </HomeContainer>
   );
