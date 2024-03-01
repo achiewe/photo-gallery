@@ -1,7 +1,12 @@
+import { SearchDataType } from "../../../type";
 import { useGalleryStore } from "../../store";
 import styled from "styled-components";
 
-export default function inputList() {
+interface inputListProps {
+  queryPhotoes: SearchDataType[];
+}
+
+export default function inputList({ queryPhotoes }: inputListProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
   return (
     <ListContainer>

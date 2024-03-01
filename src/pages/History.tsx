@@ -13,7 +13,11 @@ export default function History({ queryPhotoes }: HistoryProps) {
 
   return (
     <MainCont inputValueArray={inputValueArray}>
-      {inputValueArray.length === 0 ? <p>History is empty</p> : <InputList />}
+      {inputValueArray.length === 0 ? (
+        <p>History is empty</p>
+      ) : (
+        <InputList queryPhotoes={queryPhotoes} />
+      )}
     </MainCont>
   );
 }
