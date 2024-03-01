@@ -4,7 +4,6 @@ import { PhotoesType, SearchDataType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
 import ModalWindow from "./ModalWindow";
-import { useState } from "react";
 
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
@@ -28,16 +27,6 @@ export default function PhotoGallery(): JSX.Element {
               headers: { Authorization: `${accessKey}` },
             }
           );
-
-          const modifiedResults = response.data.results.map((photo: any) => ({
-            downloads: photo.downloads,
-            views: photo.views,
-            likes: photo.likes,
-            id: photo.id,
-            regularUrl: photo.urls.thumb,
-            altDescription: photo.alt_description,
-            description: photo.description,
-          }));
 
           return response.data;
         }
