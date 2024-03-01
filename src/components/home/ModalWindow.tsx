@@ -20,7 +20,11 @@ export default function ModalWindow() {
             setFilteredImages([]);
           }}
         />
-        <img src={filteredImages[0]?.urls.thumb} />
+        <img
+          src={filteredImages[0]?.urls.thumb}
+          srcSet={`${filteredImages[0]?.urls.thumb} 375w, ${filteredImages[0]?.urls.small} 768w`}
+          sizes="(max-width: 768px) 375px, 768px"
+        />
         <div className="InfoDiv">
           <img className="likeViewDownPng" src={likePng} alt="like png" />
           <h2>likes: {filteredImages[0]?.likes}</h2>
@@ -54,6 +58,10 @@ const ModalContainer = styled.div<{ filteredImages: SearchDataType[] }>`
   top: 30%;
   z-index: 1;
 
+  @media (min-width: 768px) {
+    width: 600px;
+    top: 5%;
+  }
   h2 {
     font-size: 18px;
   }
