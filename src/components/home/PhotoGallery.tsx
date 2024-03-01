@@ -37,8 +37,26 @@ export default function PhotoGallery(): JSX.Element {
     }
   );
 
+  // Declare searchData
+  const searchData = photoes?.results || [];
+
+  const handleImageClick = (identifier: string) => {
+    if (searchData && searchData.length > 0) {
+      const filteredSearchData = searchData.filter(
+        (photo: SearchDataType) => photo.id === identifier
+      );
+      setFilteredImages(filteredSearchData);
+    } else {
+      const filteredFetchPhotoes = fetchPhotoes.filter(
+        (photo: PhotoesType) => photo.id === identifier
+      );
+      setFilteredImages(filteredFetchPhotoes);
+      // Handle the case when searchData is empty or not available
+    }
+  };
+
   if (photoesLoading) {
-    return <div>Loading...</div>; // Render a loading indicator while fetching data
+    return <div>Loading...</div>;
   }
 
   if (!photoes) {
@@ -56,16 +74,6 @@ export default function PhotoGallery(): JSX.Element {
       </GalleryContainer>
     );
   }
-
-  const searchData = photoes.results;
-  const handleImageClick = (identifier: string) => {
-    const filteredSearchData = searchData.filter(
-      (photo: SearchDataType) => photo.id === identifier
-    );
-    setFilteredImages(filteredSearchData);
-  };
-
-  console.log(photoes.results, "mevar resulti");
 
   return (
     <GalleryContainer>

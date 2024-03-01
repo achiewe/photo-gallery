@@ -71,6 +71,8 @@ export default function Home(): JSX.Element {
   //   }
   // };
 
+  console.log(filteredImages, "mevarfiltri");
+
   return (
     <HomeContainer>
       <InputField />
