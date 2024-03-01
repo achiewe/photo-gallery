@@ -7,6 +7,8 @@ type galleryStore = {
   inputValueArray: string[];
   page: number;
   perPage: number;
+  filteredImages: [];
+  setFilteredImages: (newFilterImage: PhotoesType[]) => void;
   loading: boolean;
   setPerPage: (newPage: number) => void;
   setLoading: (newLoading: boolean) => void;
@@ -21,6 +23,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   inputValue: "",
   page: 1,
   perPage: 20,
+
   loading: false,
   inputValueArray: [],
   setPerPage: (newPage: number) => {
