@@ -28,7 +28,7 @@ export default function PhotoGallery({
         (photo: SearchDataType) => photo.id === identifier
       );
       setFilteredImages(filteredFetchPhotoes);
-      // Handle the case when searchData is empty or not available
+      // Handle the case when searchData is empty or not available sa
     }
   };
 
