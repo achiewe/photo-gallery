@@ -2,8 +2,13 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../store";
 import InputList from "../components/history/inputValueList"; // Import the component with correct casing
+import { SearchDataType } from "../../type";
 
-export default function History() {
+interface HistoryProps {
+  photoes: SearchDataType[];
+}
+
+export default function History({ photoes }: HistoryProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (

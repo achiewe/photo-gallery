@@ -3,12 +3,20 @@ import styled from "styled-components";
 import axios from "axios";
 import PhotoGallery from "../components/home/PhotoGallery";
 import InputField from "../components/home/InputField";
-
 import { useGalleryStore } from "../store";
+import { SearchDataType } from "../../type";
 
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
-export default function Home(): JSX.Element {
+interface HomeProps {
+  photoes: SearchDataType[];
+  photoesLoading: boolean;
+}
+
+export default function Home({
+  photoes,
+  photoesLoading,
+}: HomeProps): JSX.Element {
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const page = useGalleryStore((state) => state.page);
@@ -17,53 +25,47 @@ export default function Home(): JSX.Element {
   const setLoading = useGalleryStore((state) => state.setLoading);
   const filteredImages = useGalleryStore((state) => state.filteredImages);
 
-  // useEffect(() => {
-  //   fetchImages();
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [page]); // Update dependency to include page
-
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        setLoading(true);
+    fetchImages(); // Initial fetch on component mount
 
-        const perPage = 20;
-        const response = await axios.get(
-          `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
-        );
+    window.addEventListener("scroll", handleScroll);
 
-        // Update the photos state based on the page
-        if (page === 1) {
-          setFetchPhotoes(response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching images:", error);
-      } finally {
-        setLoading(false);
-      }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
     };
+  }, [page]); // Update dependency to include page
 
-    fetchImages();
-  }, []);
+  const fetchImages = async () => {
+    try {
+      setLoading(true);
 
-  // const handleScroll = () => {
-  //   const windowHeight = window.innerHeight;
-  //   const docHeight = document.documentElement.scrollHeight;
-  //   const scrollTop = document.documentElement.scrollTop;
-  //   const bottomThreshold = 100; // Adjust as needed
+      const perPage = 20;
+      const response = await axios.get(
+        `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
+      );
 
-  //   if (windowHeight + scrollTop > docHeight - bottomThreshold && !loading) {
-  //     setPage(page + 1); // Increment the page state by 1
-  //   }
-  // };
+      setFetchPhotoes(response.data);
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleScroll = () => {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+    const bottomThreshold = 100; // Adjust as needed
+
+    if (scrollTop + clientHeight > scrollHeight - bottomThreshold && !loading) {
+      setPage(page + 1); // Increment the page state by 1
+    }
+  };
 
   return (
     <HomeContainer>
       <InputField />
-      <PhotoGallery />
+      <PhotoGallery photoes={photoes} photoesLoading={photoesLoading} />
       {loading && <Loading>Loading...</Loading>}
     </HomeContainer>
   );

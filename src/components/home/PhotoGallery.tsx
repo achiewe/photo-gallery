@@ -5,44 +5,24 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import ModalWindow from "./ModalWindow";
 
-const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
+interface PhotoGalleryProps {
+  photoes: SearchDataType[];
+  photoesLoading: boolean;
+}
 
-export default function PhotoGallery(): JSX.Element {
+export default function PhotoGallery({
+  photoes,
+  photoesLoading,
+}: PhotoGalleryProps): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
-  const inputValue = useGalleryStore((state) => state.inputValue);
-  const page = useGalleryStore((state) => state.page);
-  const perPage = useGalleryStore((state) => state.perPage);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
 
-  const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
-  const { data: photoes, isLoading: photoesLoading } = useQuery(
-    queryKey,
-
-    async () => {
-      try {
-        if (inputValue !== "") {
-          const response = await axios.get(
-            `https://api.unsplash.com/search/photos/?client_id=${accessKey}&page=${page}&per_page=${perPage}&query=${inputValue}`,
-            {
-              headers: { Authorization: `${accessKey}` },
-            }
-          );
-
-          return response.data;
-        }
-      } catch (error) {
-        console.error("Error fetching photos:", error);
-        throw error;
-      }
-    }
-  );
-
   // Declare searchData
-  const searchData = photoes?.results || [];
+  // const searchData = photoes.results || [];
 
   const handleImageClick = (identifier: string) => {
-    if (searchData && searchData.length > 0) {
-      const filteredSearchData = searchData.filter(
+    if (photoes && photoes.length > 0) {
+      const filteredSearchData = photoes.filter(
         (photo: SearchDataType) => photo.id === identifier
       );
       setFilteredImages(filteredSearchData);
@@ -77,9 +57,11 @@ export default function PhotoGallery(): JSX.Element {
     );
   }
 
+  console.log(photoes);
+
   return (
     <GalleryContainer>
-      {searchData.map((photo: SearchDataType, index: number) => (
+      {photoes.map((photo: SearchDataType, index: number) => (
         <div key={index} className="imageContainer">
           <img
             src={photo.urls.thumb}
