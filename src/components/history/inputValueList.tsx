@@ -6,10 +6,10 @@ export default function inputList() {
   return (
     <ListContainer>
       {inputValueArray.map((inputText, index) => (
-        <div className="hrInputDiv" key={index}>
-          <h1>{inputText}</h1>
+        <ul className="hrInputDiv" key={index}>
+          <li>{inputText}</li>
           <hr />
-        </div>
+        </ul>
       ))}
     </ListContainer>
   );
@@ -44,8 +44,9 @@ const ListContainer = styled.div`
     }
   }
 
-  h1 {
+  li {
     font-size: 16px;
     color: black;
+    list-style-type: none;
   }
 `;
