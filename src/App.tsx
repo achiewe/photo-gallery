@@ -6,10 +6,17 @@ import Header from "./components/Header";
 import { QueryClientProvider, QueryClient } from "react-query";
 import History from "./pages/History";
 import ModalWindow from "./components/home/ModalWindow";
+import { useGalleryStore } from "./store";
 
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
+  const filteredImages = useGalleryStore((state) => state.filteredImages);
+  console.log(filteredImages.length);
+
+  filteredImages.length > 0
+    ? (document.body.style.overflow = "hidden")
+    : (document.body.style.overflow = "auto");
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
@@ -38,12 +45,12 @@ const MainContainer = styled.div`
   position: relative;
   gap: 40px;
   background-color: #f2f2f2;
-  /* 
+
   .overlay {
     width: 100%;
     height: 100%;
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
-  } */
+  }
 `;
 export default App;
