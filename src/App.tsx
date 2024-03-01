@@ -7,20 +7,19 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import History from "./pages/History";
 import ModalWindow from "./components/home/ModalWindow";
 import { useGalleryStore } from "./store";
+import { SearchDataType } from "../type";
 
 const queryClient = new QueryClient();
 
 function App(): JSX.Element {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
-  console.log(filteredImages.length);
-
   filteredImages.length > 0
     ? (document.body.style.overflow = "hidden")
     : (document.body.style.overflow = "auto");
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <MainContainer>
+        <MainContainer filteredImages={filteredImages}>
           <GlobalStyles />
           <Header />
           <Routes>
@@ -35,7 +34,7 @@ function App(): JSX.Element {
   );
 }
 
-const MainContainer = styled.div`
+const MainContainer = styled.div<{ filteredImages: SearchDataType[] }>`
   width: 100%;
   min-height: 100vh;
   display: flex;
@@ -49,6 +48,7 @@ const MainContainer = styled.div`
   .overlay {
     width: 100%;
     height: 100%;
+    display: ${(props) => (props.filteredImages.length > 0 ? "flex" : "none")};
     position: absolute;
     background-color: rgba(0, 0, 0, 0.5);
   }

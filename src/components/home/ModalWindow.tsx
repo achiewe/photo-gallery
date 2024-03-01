@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
+import { SearchDataType } from "../../../type";
 
 export default function ModalWindow() {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   return (
-    <ModalContainer>
+    <ModalContainer filteredImages={filteredImages}>
       <div className="imageDataContainer">
         <img src={filteredImages[0]?.urls.thumb} />
       </div>
@@ -12,12 +13,11 @@ export default function ModalWindow() {
   );
 }
 
-const ModalContainer = styled.div`
+const ModalContainer = styled.div<{ filteredImages: SearchDataType[] }>`
   width: 300px;
   height: 100px;
-  position: absolute;
   background-color: white;
-  display: flex;
+  display: ${(props) => (props.filteredImages.length > 0 ? "flex" : "none")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
