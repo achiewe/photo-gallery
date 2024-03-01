@@ -86,7 +86,6 @@ export default function PhotoGallery(): JSX.Element {
           />
         </div>
       ))}
-      <ModalWindow />
     </GalleryContainer>
   );
 }

@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Header from "./components/Header";
 import { QueryClientProvider, QueryClient } from "react-query";
 import History from "./pages/History";
+import ModalWindow from "./components/home/ModalWindow";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ function App(): JSX.Element {
             <Route path="/" element={<Home />} />
             <Route path="/History" element={<History />} />
           </Routes>
+          <ModalWindow />
           <div className="overlay"></div>
         </MainContainer>
       </Router>
