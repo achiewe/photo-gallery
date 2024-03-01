@@ -15,6 +15,7 @@ export default function Home(): JSX.Element {
   const setPage = useGalleryStore((state) => state.setPage);
   const loading = useGalleryStore((state) => state.loading);
   const setLoading = useGalleryStore((state) => state.setLoading);
+  const filteredImages = useGalleryStore((state) => state.filteredImages);
 
   // useEffect(() => {
   //   fetchImages();

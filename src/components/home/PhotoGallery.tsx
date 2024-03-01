@@ -4,6 +4,7 @@ import { PhotoesType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
 import ModalWindow from "./ModalWindow";
+import { useState } from "react";
 
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
@@ -12,6 +13,7 @@ export default function PhotoGallery(): JSX.Element {
   const inputValue = useGalleryStore((state) => state.inputValue);
   const page = useGalleryStore((state) => state.page);
   const perPage = useGalleryStore((state) => state.perPage);
+  const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
 
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
   const { data: photoes, isLoading: photoesLoading } = useQuery(
@@ -27,6 +29,17 @@ export default function PhotoGallery(): JSX.Element {
               headers: { Authorization: `${accessKey}` },
             }
           );
+
+          const modifiedResults = response.data.results.map((photo: any) => ({
+            downloads: photo.downloads,
+            views: photo.views,
+            likes: photo.likes,
+            id: photo.id,
+            regularUrl: photo.urls.thumb,
+            altDescription: photo.alt_description,
+            description: photo.description,
+          }));
+
           return response.data;
         }
       } catch (error) {
@@ -46,7 +59,11 @@ export default function PhotoGallery(): JSX.Element {
       <GalleryContainer>
         {fetchPhotoes.map((photo: PhotoesType, index: number) => (
           <div key={index} className="imageContainer">
-            <img src={photo.regularUrl} alt={photo.description} />
+            <img
+              src={photo.regularUrl}
+              alt={photo.description}
+              onClick={() => handleImageClick(photo.id)}
+            />
           </div>
         ))}
       </GalleryContainer>
@@ -54,12 +71,22 @@ export default function PhotoGallery(): JSX.Element {
   }
 
   const searchData = photoes.results;
+  const handleImageClick = (identifier: string) => {
+    const filteredSearchData = searchData.filter(
+      (photo: any) => photo.id === identifier
+    );
+    setFilteredImages(filteredSearchData);
+  };
 
   return (
     <GalleryContainer>
       {searchData.map((photo: any, index: number) => (
         <div key={index} className="imageContainer">
-          <img src={photo.urls.thumb} alt={photo.description} />
+          <img
+            src={photo.urls.thumb}
+            alt={photo.description}
+            onClick={() => handleImageClick(photo.id)}
+          />
         </div>
       ))}
       <ModalWindow />
