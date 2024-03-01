@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
-import { PhotoesType, SearchDataType } from "../../../type";
+import { SearchDataType } from "../../../type";
 import { useQuery } from "react-query";
 import axios from "axios";
 import ModalWindow from "./ModalWindow";
@@ -48,7 +48,7 @@ export default function PhotoGallery(): JSX.Element {
       setFilteredImages(filteredSearchData);
     } else {
       const filteredFetchPhotoes = fetchPhotoes.filter(
-        (photo: PhotoesType) => photo.id === identifier
+        (photo: SearchDataType) => photo.id === identifier
       );
       setFilteredImages(filteredFetchPhotoes);
       // Handle the case when searchData is empty or not available
@@ -62,11 +62,11 @@ export default function PhotoGallery(): JSX.Element {
   if (!photoes) {
     return (
       <GalleryContainer>
-        {fetchPhotoes.map((photo: PhotoesType, index: number) => (
+        {fetchPhotoes.map((photo: SearchDataType, index: number) => (
           <div key={index} className="imageContainer">
             <img
-              src={photo.regularUrl}
-              alt={photo.description}
+              src={photo.urls.thumb}
+              alt={photo.alt_description}
               onClick={() => handleImageClick(photo.id)}
             />
           </div>

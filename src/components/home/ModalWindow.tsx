@@ -1,7 +1,15 @@
 import styled from "styled-components";
+import { useGalleryStore } from "../../store";
 
 export default function ModalWindow() {
-  return <ModalContainer></ModalContainer>;
+  const filteredImages = useGalleryStore((state) => state.filteredImages);
+  return (
+    <ModalContainer>
+      <div className="imageDataContainer">
+        <img src={filteredImages[0]?.urls.thumb} />
+      </div>
+    </ModalContainer>
+  );
 }
 
 const ModalContainer = styled.div`
@@ -13,10 +21,15 @@ const ModalContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  left: 50%;
-  right: 50%;
+  position: fixed;
+  top: 50%;
+  z-index: 1;
+
+  .imageDataContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;

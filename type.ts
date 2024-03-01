@@ -1,13 +1,3 @@
-export interface PhotoesType {
-  downloads: number;
-  views: number;
-  likes: number;
-  id: string;
-  regularUrl: string;
-  altDescription: string | null;
-  description: string | undefined;
-}
-
 export interface SearchDataType {
   alt_description: string;
   blur_hash: string;

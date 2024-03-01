@@ -1,21 +1,21 @@
 import { create } from "zustand";
-import { PhotoesType } from "../type";
+import { SearchDataType } from "../type";
 
 type galleryStore = {
-  fetchPhotoes: PhotoesType[];
+  fetchPhotoes: SearchDataType[];
   inputValue: string;
   inputValueArray: string[];
   page: number;
   perPage: number;
-  filteredImages: PhotoesType[];
-  setFilteredImages: (newFilterImage: PhotoesType[]) => void;
+  filteredImages: SearchDataType[];
+  setFilteredImages: (newFilterImage: SearchDataType[]) => void;
   loading: boolean;
   setPerPage: (newPage: number) => void;
   setLoading: (newLoading: boolean) => void;
   setPage: (newPage: number) => void;
   setInputValueArray: (newArray: string[]) => void;
   setInputValue: (newValue: string) => void;
-  setFetchPhotoes: (newPhotoes: PhotoesType[]) => void;
+  setFetchPhotoes: (newPhotoes: SearchDataType[]) => void;
 };
 
 export const useGalleryStore = create<galleryStore>((set) => ({
@@ -30,7 +30,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   setPerPage: (newPage: number) => {
     set({ perPage: newPage });
   },
-  setFilteredImages: (newFilterImage: PhotoesType[]) => {
+  setFilteredImages: (newFilterImage: SearchDataType[]) => {
     set({ filteredImages: newFilterImage });
   },
   setLoading: (newLoading: boolean) => {
@@ -52,7 +52,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
       });
     }
   },
-  setFetchPhotoes: (newPhotoes: PhotoesType[]) => {
+  setFetchPhotoes: (newPhotoes: SearchDataType[]) => {
     set((state) => ({ fetchPhotoes: [...state.fetchPhotoes, ...newPhotoes] }));
     return;
   },

@@ -38,8 +38,8 @@ const MainContainer = styled.div`
   position: relative;
   gap: 40px;
   background-color: #f2f2f2;
-
-  /* .overlay {
+  /* 
+  .overlay {
     width: 100%;
     height: 100%;
     position: absolute;
