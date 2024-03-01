@@ -28,7 +28,7 @@ const ListContainer = styled.div`
     background-color: #d9d9d9;
   }
 
-  .hrInputDiv {
+  .ul {
     width: 100%;
     display: flex;
     flex-direction: column;

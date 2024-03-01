@@ -66,6 +66,8 @@ export default function PhotoGallery(): JSX.Element {
           <div key={index} className="imageContainer">
             <img
               src={photo.urls.thumb}
+              srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
+              sizes="(max-width: 768px) 375px, 768px"
               alt={photo.alt_description}
               onClick={() => handleImageClick(photo.id)}
             />
@@ -81,6 +83,8 @@ export default function PhotoGallery(): JSX.Element {
         <div key={index} className="imageContainer">
           <img
             src={photo.urls.thumb}
+            srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
+            sizes="(max-width: 768px) 375px, 768px"
             alt={photo.alt_description}
             onClick={() => handleImageClick(photo.id)}
           />
