@@ -18,11 +18,17 @@ const HeaderContainer = styled.header`
   height: 50px;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   background-color: #bfbfbf;
   margin-top: 20px;
   border-radius: 20px;
-  gap: 30px;
+  padding: 0 20px;
+
+  @media (min-width: 768px) {
+    width: 300px;
+    gap: 70px;
+    padding: 0 50px;
+  }
 
   a {
     text-decoration: none;

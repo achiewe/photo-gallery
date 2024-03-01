@@ -52,4 +52,8 @@ const Input = styled.input`
   padding-left: 10px;
   border: none;
   border-radius: 10px;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 `;
