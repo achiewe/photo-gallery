@@ -20,30 +20,28 @@ export default function Home({
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const page = useGalleryStore((state) => state.page);
+  const perPage = useGalleryStore((state) => state.perPage);
   const setPage = useGalleryStore((state) => state.setPage);
   const loading = useGalleryStore((state) => state.loading);
   const setLoading = useGalleryStore((state) => state.setLoading);
   const filteredImages = useGalleryStore((state) => state.filteredImages);
 
   useEffect(() => {
-    fetchImages();
+    fetchImages(page, perPage);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []); // Effect runs only once on component mount
+  }, [page]); // Effect runs only once on component mount
 
-  const fetchImages = async () => {
+  const fetchImages = async (page: number, perPage: number) => {
     try {
       setLoading(true);
 
-      const perPage = 20;
       const response = await axios.get(
         `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
       );
-
-      console.log("API Response:", response);
 
       // Filter out duplicates before updating state
       const newPhotos = response.data.filter((photo: SearchDataType) => {
@@ -53,14 +51,18 @@ export default function Home({
         );
       });
 
+      console.log("New photos length:", newPhotos.length);
+
       // Append new photos to existing photos
-      setFetchPhotoes(newPhotos);
+      setFetchPhotoes([...fetchPhotoes, ...newPhotos]);
     } catch (error) {
       console.error("Error fetching images:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  console.log(page);
 
   const handleScroll = () => {
     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;

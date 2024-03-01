@@ -37,7 +37,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
     set({ loading: newLoading });
   },
   setPage: (newPage: number) => {
-    set((state) => ({ ...state, page: newPage }));
+    set({ page: newPage });
   },
   setInputValueArray: (newArray) => {
     if (newArray.length > 0) {
@@ -53,7 +53,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
     }
   },
   setFetchPhotoes: (newPhotoes: SearchDataType[]) => {
-    set((state) => ({ fetchPhotoes: [...state.fetchPhotoes, ...newPhotoes] }));
+    set({ fetchPhotoes: newPhotoes });
   },
 
   setInputValue: (newValue: string) => {
