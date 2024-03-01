@@ -31,7 +31,7 @@ export default function ModalWindow() {
         </div>
         <div className="InfoDiv">
           <img className="likeViewDownPng" src={ViewPng} alt="view png" />
-          <h2>View: {filteredImages[0]?.likes}</h2>
+          <h2>Views: {filteredImages[0]?.likes}</h2>
         </div>
         <div className="InfoDiv">
           <img
@@ -55,12 +55,17 @@ const ModalContainer = styled.div<{ filteredImages: SearchDataType[] }>`
   align-items: center;
   position: fixed;
   padding: 15px 0;
+  border-radius: 20px;
   top: 30%;
   z-index: 1;
 
   @media (min-width: 768px) {
     width: 600px;
     top: 5%;
+  }
+
+  @media (min-width: 1024px) {
+    top: 10%;
   }
   h2 {
     font-size: 18px;
@@ -79,8 +84,8 @@ const ModalContainer = styled.div<{ filteredImages: SearchDataType[] }>`
       width: 20px;
       height: 20px;
       position: absolute;
-      right: 5px;
-      top: -10px;
+      right: 10px;
+      top: -6px;
       cursor: pointer;
     }
 
