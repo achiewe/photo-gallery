@@ -7,7 +7,7 @@ type galleryStore = {
   inputValueArray: string[];
   page: number;
   perPage: number;
-  filteredImages: [];
+  filteredImages: PhotoesType[];
   setFilteredImages: (newFilterImage: PhotoesType[]) => void;
   loading: boolean;
   setPerPage: (newPage: number) => void;
@@ -21,13 +21,17 @@ type galleryStore = {
 export const useGalleryStore = create<galleryStore>((set) => ({
   fetchPhotoes: [],
   inputValue: "",
+  filteredImages: [],
   page: 1,
   perPage: 20,
-
   loading: false,
   inputValueArray: [],
+
   setPerPage: (newPage: number) => {
     set({ perPage: newPage });
+  },
+  setFilteredImages: (newFilterImage: PhotoesType[]) => {
+    set({ filteredImages: newFilterImage });
   },
   setLoading: (newLoading: boolean) => {
     set({ loading: newLoading });
