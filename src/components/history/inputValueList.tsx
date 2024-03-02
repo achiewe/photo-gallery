@@ -1,3 +1,4 @@
+import { useQueryClient } from "react-query";
 import { SearchDataType } from "../../../type";
 import { useGalleryStore } from "../../store";
 import styled from "styled-components";
@@ -7,11 +8,16 @@ interface inputListProps {
 }
 
 export default function InputList({ queryKeyData }: inputListProps) {
+  const inputValue = useGalleryStore((state) => state.inputValue);
+  const queryClient = useQueryClient();
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
+
+  // Accessing the data using the query key
+  const queryData = queryClient.getQueryData(["photos", inputValue]);
 
   return (
     <ListContainer>
-      {queryKeyData.map((inputText: any, index: any) => (
+      {inputValueArray.map((inputText: any, index: any) => (
         <ul key={index}>
           <li>{inputText}</li>
           <hr />
