@@ -49,15 +49,15 @@ export interface photoStatsType {
   id: string;
   downloads: {
     total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
+    historical: Record<string, unknown>;
   };
   likes: {
     total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
+    historical: Record<string, unknown>;
   };
   slug: string;
   views: {
     total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
+    historical: Record<string, unknown>;
   };
 }

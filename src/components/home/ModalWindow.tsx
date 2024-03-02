@@ -2,34 +2,17 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useGalleryStore } from "../../store";
-import { SearchDataType } from "../../../type";
+import { SearchDataType, photoStatsType } from "../../../type";
 import likePng from "../../../public/assets/like.png";
 import ViewPng from "../../../public/assets/view.png";
 import downoloadPng from "../../../public/assets/download.png";
 import closePng from "../../../public/assets/close.png";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
-interface PhotoStats {
-  id: string;
-  downloads: {
-    total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
-  };
-  likes: {
-    total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
-  };
-  slug: string;
-  views: {
-    total: number;
-    historical: Record<string, unknown>; // Define the structure of historical if needed
-  };
-}
-
 export default function ModalWindow() {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
-  const [photoStats, setPhotoStats] = useState<PhotoStats | null>(null);
+  const [photoStats, setPhotoStats] = useState<photoStatsType | null>(null);
 
   console.log(photoStats?.downloads);
 
@@ -55,7 +38,7 @@ export default function ModalWindow() {
   }, [filteredImages]);
 
   if (!filteredImages[0]?.id) {
-    return null; // Render nothing if filteredImages[0].id does not exist
+    return null;
   }
 
   return (
