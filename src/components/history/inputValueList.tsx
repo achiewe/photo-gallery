@@ -8,11 +8,12 @@ interface inputListProps {
 
 export default function inputList({ queryPhotoes }: inputListProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
-  console.log(queryPhotoes);
+  console.log(inputValueArray);
+
   return (
     <ListContainer>
       {inputValueArray.map((inputText, index) => (
-        <ul className="hrInputDiv" key={index}>
+        <ul key={index}>
           <li>{inputText}</li>
           <hr />
         </ul>
@@ -43,20 +44,20 @@ const ListContainer = styled.div`
     gap: 10px;
     cursor: pointer;
 
+    li {
+      font-size: 16px;
+      font-weight: 600;
+      color: black;
+      list-style-type: none;
+      @media (min-width: 768px) {
+        font-size: 20px;
+      }
+    }
+
     hr {
       width: 100%;
       border: 1px solid gray;
       opacity: 0.3;
-    }
-  }
-
-  li {
-    font-size: 16px;
-    font-weight: 600;
-    color: black;
-    list-style-type: none;
-    @media (min-width: 768px) {
-      font-size: 20px;
     }
   }
 `;

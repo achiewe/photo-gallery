@@ -44,7 +44,7 @@ export default function ModalWindow() {
   }
 
   return (
-    <ModalContainer filteredImages={filteredImages}>
+    <ModalContainer filteredimages={filteredImages}>
       <div className="imageDataContainer">
         <img
           className="closePng"
@@ -86,10 +86,10 @@ export default function ModalWindow() {
   );
 }
 
-const ModalContainer = styled.div<{ filteredImages: SearchDataType[] }>`
+const ModalContainer = styled.div<{ filteredimages: SearchDataType[] }>`
   width: 300px;
   background-color: white;
-  display: ${(props) => (props.filteredImages.length > 0 ? "flex" : "none")};
+  display: ${(props) => (props.filteredimages.length > 0 ? "flex" : "none")};
   flex-direction: column;
   justify-content: center;
   align-items: center;
