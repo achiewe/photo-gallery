@@ -22,9 +22,8 @@ export default function InputField({
 
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
   console.log("inputValueArray:", inputValueArray);
-  // console.log("inputValue:", inputValue);
-  // console.log("queryPhotoes outside of the function:", queryPhotoes);
-  // console.log("photoesLoading:", photoesLoading);
+
+  console.log("queryPhotoes outside of the function:", queryPhotoes);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -33,10 +32,11 @@ export default function InputField({
     if (timeoutId) {
       window.clearTimeout(timeoutId);
     }
+    console.log(queryPhotoes, "settimeotis garet");
 
     // Set a new timeout to trigger the search after 2000 milliseconds
     const newTimeoutId = window.setTimeout(() => {
-      console.log("queryPhotoes outside of the function:", queryPhotoes);
+      console.log("queryPhotoes inside of the function:", queryPhotoes);
       if (value.trim() !== "" && queryPhotoes && !photoesLoading) {
         setInputValueArray({ inputValue: value, queryPhotoes });
       }

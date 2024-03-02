@@ -9,7 +9,6 @@ import { useGalleryStore } from "./store";
 import { SearchDataType } from "../type";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useEffect } from "react";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
@@ -17,9 +16,6 @@ function App(): JSX.Element {
   const inputValue = useGalleryStore((state) => state.inputValue);
   const page = useGalleryStore((state) => state.page);
   const perPage = useGalleryStore((state) => state.perPage);
-  const setInputValueArray = useGalleryStore(
-    (state) => state.setInputValueArray
-  );
 
   filteredImages.length > 0
     ? (document.body.style.overflow = "hidden")
@@ -48,11 +44,6 @@ function App(): JSX.Element {
     }
   );
 
-  // useEffect(() => {
-  //   if (queryPhotoes && !photoesLoading) {
-  //     setInputValueArray({ inputValue, queryPhotoes });
-  //   }
-  // }, [queryPhotoes, photoesLoading]);
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>

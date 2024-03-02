@@ -43,7 +43,11 @@ export const useGalleryStore = create<galleryStore>((set) => ({
     set({ page: newPage });
   },
   setInputValueArray: ({ inputValue, queryPhotoes }) => {
+    // Update queryPhotoes here if needed
+    // For example, you could perform some manipulation or checks on queryPhotoes
+
     if (inputValue.trim() !== "") {
+      console.log(queryPhotoes, "mevars state query");
       set((state) => ({
         inputValueArray: {
           ...state.inputValueArray,
