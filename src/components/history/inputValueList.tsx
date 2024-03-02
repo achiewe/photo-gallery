@@ -12,12 +12,12 @@ export default function inputList({ queryPhotoes }: inputListProps) {
 
   return (
     <ListContainer>
-      {inputValueArray.map((inputText, index) => (
+      {/* {inputValueArray.map((inputText, index) => (
         <ul key={index}>
           <li>{inputText}</li>
           <hr />
         </ul>
-      ))}
+      ))} */}
     </ListContainer>
   );
 }

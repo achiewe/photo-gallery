@@ -73,7 +73,7 @@ export default function Home({
 
   return (
     <HomeContainer>
-      <InputField />
+      <InputField queryPhotoes={queryPhotoes} photoesLoading={photoesLoading} />
       <PhotoGallery
         queryPhotoes={queryPhotoes}
         photoesLoading={photoesLoading}

@@ -4,7 +4,7 @@ import { SearchDataType } from "../type";
 type galleryStore = {
   fetchPhotoes: SearchDataType[];
   inputValue: string;
-  inputValueArray: string[];
+  inputValueArray: { [key: string]: SearchDataType[] };
   page: number;
   perPage: number;
   filteredImages: SearchDataType[];
@@ -13,7 +13,10 @@ type galleryStore = {
   setPerPage: (newPage: number) => void;
   setLoading: (newLoading: boolean) => void;
   setPage: (newPage: number) => void;
-  setInputValueArray: (newArray: string[]) => void;
+  setInputValueArray: (data: {
+    inputValue: string;
+    queryPhotoes: SearchDataType[];
+  }) => void;
   setInputValue: (newValue: string) => void;
   setFetchPhotoes: (newPhotoes: SearchDataType[]) => void;
 };
@@ -25,7 +28,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   page: 1,
   perPage: 20,
   loading: false,
-  inputValueArray: [],
+  inputValueArray: {},
 
   setPerPage: (newPage: number) => {
     set({ perPage: newPage });
@@ -39,17 +42,14 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   setPage: (newPage: number) => {
     set({ page: newPage });
   },
-  setInputValueArray: (newArray) => {
-    if (newArray.length > 0) {
-      set((state) => {
-        // Filter out values that already exist in state.inputValueArray
-        const uniqueValues = newArray.filter(
-          (value) => !state.inputValueArray.includes(value)
-        );
-        return {
-          inputValueArray: [...state.inputValueArray, ...uniqueValues],
-        };
-      });
+  setInputValueArray: ({ inputValue, queryPhotoes }) => {
+    if (inputValue.trim() !== "") {
+      set((state) => ({
+        inputValueArray: {
+          ...state.inputValueArray,
+          [inputValue]: queryPhotoes,
+        },
+      }));
     }
   },
   setFetchPhotoes: (newPhotoes: SearchDataType[]) => {

@@ -12,8 +12,8 @@ export default function History({ queryPhotoes }: HistoryProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (
-    <MainCont inputValueArray={inputValueArray}>
-      {inputValueArray.length === 0 ? (
+    <MainCont>
+      {Object.keys(inputValueArray).length === 0 ? (
         <p>History is empty</p>
       ) : (
         <InputList queryPhotoes={queryPhotoes} />
@@ -22,7 +22,7 @@ export default function History({ queryPhotoes }: HistoryProps) {
   );
 }
 
-const MainCont = styled.div<{ inputValueArray: string[] }>`
+const MainCont = styled.div`
   width: 300px;
   display: flex;
   flex-direction: column;
