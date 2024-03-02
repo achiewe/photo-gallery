@@ -5,7 +5,7 @@ import InputList from "../components/history/inputValueList";
 import { SearchDataType } from "../../type";
 
 interface HistoryProps {
-  queryKeyData: string[];
+  queryKeyData: (string | number)[];
 }
 
 export default function History({ queryKeyData }: HistoryProps) {

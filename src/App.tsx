@@ -25,6 +25,7 @@ function App(): JSX.Element {
   );
 
   const queryKey = ["photos", inputValue, pageQuery];
+  console.log(queryKey, "mevar querykey");
   const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
     queryKey,
     async () => {
@@ -70,7 +71,7 @@ function App(): JSX.Element {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [perPageQuery, pageQuery]);
+  }, [perPageQuery, pageQuery, queryPhotoes]);
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>

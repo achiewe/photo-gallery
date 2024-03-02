@@ -9,7 +9,7 @@ import { SearchDataType } from "../../type";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 interface HomeProps {
-  queryKeyData: string[];
+  queryKeyData: (string | number)[];
   photoesLoading: boolean;
   queryPhotoes: SearchDataType[];
 }

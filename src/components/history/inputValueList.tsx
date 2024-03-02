@@ -4,7 +4,7 @@ import { useGalleryStore } from "../../store";
 import styled from "styled-components";
 
 interface inputListProps {
-  queryKeyData: string[];
+  queryKeyData: (string | number)[];
 }
 
 export default function InputList({ queryKeyData }: inputListProps) {

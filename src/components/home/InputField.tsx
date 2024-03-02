@@ -6,7 +6,7 @@ import { SearchDataType } from "../../../type";
 import { useQueryClient } from "react-query";
 
 interface InputFieldProps {
-  queryKeyData: string[];
+  queryKeyData: (string | number)[];
   queryPhotoes: SearchDataType[];
 }
 
