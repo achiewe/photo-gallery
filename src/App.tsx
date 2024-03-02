@@ -57,17 +57,32 @@ function App(): JSX.Element {
         !loading
       ) {
         // Increase the number of photos to be loaded
-
-        setPageQuery(pageQuery + 1);
+        setPageQuery((prevPage) => prevPage + 1);
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const debounceScroll = debounce(handleScroll, 200); // Example debounce function with 200ms delay
+
+    window.addEventListener("scroll", debounceScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", debounceScroll);
     };
-  }, [perPageQuery, pageQuery, queryPhotoes]);
+  }, [loading]);
+
+  function debounce<T extends Function>(
+    func: T,
+    delay: number
+  ): (...args: any[]) => void {
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    return function (this: any, ...args: any[]) {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
+  }
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>
