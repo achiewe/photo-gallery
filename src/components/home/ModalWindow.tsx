@@ -13,8 +13,9 @@ export default function ModalWindow() {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
   const [photoStats, setPhotoStats] = useState<photoStatsType | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  console.log(photoStats?.downloads);
+  console.log(photoStats);
 
   useEffect(() => {
     const fetchPhotoStatistics = async () => {
@@ -29,10 +30,13 @@ export default function ModalWindow() {
         setPhotoStats(response.data);
       } catch (error) {
         console.error("Error fetching photo statistics:", error);
+      } finally {
+        setLoading(false); // Set loading to false once fetching is complete
       }
     };
 
     if (filteredImages[0]?.id) {
+      setLoading(true); // Set loading to true before fetching
       fetchPhotoStatistics();
     }
   }, [filteredImages]);
@@ -57,22 +61,28 @@ export default function ModalWindow() {
           srcSet={`${filteredImages[0]?.urls.thumb} 375w, ${filteredImages[0]?.urls.small} 768w`}
           sizes="(max-width: 768px) 375px, 768px"
         />
-        <div className="InfoDiv">
-          <img className="likeViewDownPng" src={likePng} alt="like png" />
-          {/* <h2>Likes: {photoStats[0].likes.total}</h2> */}
-        </div>
-        <div className="InfoDiv">
-          <img className="likeViewDownPng" src={ViewPng} alt="view png" />
-          {/* <h2>Views: {photoStats?.views?.total}</h2> */}
-        </div>
-        <div className="InfoDiv">
-          <img
-            className="likeViewDownPng"
-            src={downoloadPng}
-            alt="download png"
-          />
-          {/* <h2>Downloads: {photoStats?.downloads?.total}</h2> */}
-        </div>
+        {loading ? (
+          <h3>Loading...</h3>
+        ) : (
+          <>
+            <div className="InfoDiv">
+              <img className="likeViewDownPng" src={likePng} alt="like png" />
+              <h2>Likes: {photoStats?.likes.total}</h2>
+            </div>
+            <div className="InfoDiv">
+              <img className="likeViewDownPng" src={ViewPng} alt="view png" />
+              <h2>Views: {photoStats?.views.total}</h2>
+            </div>
+            <div className="InfoDiv">
+              <img
+                className="likeViewDownPng"
+                src={downoloadPng}
+                alt="download png"
+              />
+              <h2>Downloads: {photoStats?.downloads.total}</h2>
+            </div>
+          </>
+        )}
       </div>
     </ModalContainer>
   );
