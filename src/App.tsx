@@ -20,7 +20,7 @@ function App(): JSX.Element {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const inputValue = useGalleryStore((state) => state.inputValue);
 
-  const queryKey = ["photos", inputValue, pageQuery];
+  const queryKey = ["photos", inputValue];
   console.log(queryKey, "mevar querykey");
   const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
     queryKey,
@@ -57,32 +57,17 @@ function App(): JSX.Element {
         !loading
       ) {
         // Increase the number of photos to be loaded
-        setPageQuery((prevPage) => prevPage + 1);
+
+        setPageQuery(pageQuery + 1);
       }
     };
 
-    const debounceScroll = debounce(handleScroll, 200); // Example debounce function with 200ms delay
-
-    window.addEventListener("scroll", debounceScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", debounceScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, [loading]);
-
-  function debounce<T extends Function>(
-    func: T,
-    delay: number
-  ): (...args: any[]) => void {
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    return function (this: any, ...args: any[]) {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  }
+  }, [perPageQuery, pageQuery, queryPhotoes]);
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>

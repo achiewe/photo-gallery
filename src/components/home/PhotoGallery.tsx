@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
+import { useQueryClient } from "react-query";
 // import { useQueryClient } from "react-query";
 
 interface PhotoGalleryProps {
@@ -14,6 +15,21 @@ export default function PhotoGallery({
 }: PhotoGalleryProps): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
+  const inputValueArray = useGalleryStore((state) => state.inputValueArray);
+
+  const queryClient = useQueryClient();
+
+  // const queryCatch = queryClient.getQueryCache();
+  // const cachedData = queryCatch.findAll();
+  // const lastCachedData =
+  //   cachedData.length > 0 ? cachedData[cachedData.length - 2] : null;
+
+  const queryData: any = queryClient.getQueryData([
+    "photos",
+    inputValueArray[inputValueArray.length - 1],
+  ]);
+
+  console.log(queryData, "queryDataa varr me me var queryData");
 
   const handleImageClick = (identifier: string) => {
     if (queryPhotoes && queryPhotoes.length > 0) {
@@ -37,17 +53,29 @@ export default function PhotoGallery({
   if (!queryPhotoes) {
     return (
       <GalleryContainer>
-        {fetchPhotoes.map((photo: SearchDataType, index: number) => (
-          <div key={index} className="imageContainer">
-            <img
-              src={photo.urls.thumb}
-              srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
-              sizes="(max-width: 768px) 375px, 768px"
-              alt={photo.alt_description}
-              onClick={() => handleImageClick(photo.id)}
-            />
-          </div>
-        ))}
+        {queryData === undefined
+          ? fetchPhotoes.map((photo: SearchDataType, index: number) => (
+              <div key={index} className="imageContainer">
+                <img
+                  src={photo.urls.thumb}
+                  srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
+                  sizes="(max-width: 768px) 375px, 768px"
+                  alt={photo.alt_description}
+                  onClick={() => handleImageClick(photo.id)}
+                />
+              </div>
+            ))
+          : queryData.map((photo: SearchDataType, index: number) => (
+              <div key={index} className="imageContainer">
+                <img
+                  src={photo.urls.thumb}
+                  srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
+                  sizes="(max-width: 768px) 375px, 768px"
+                  alt={photo.alt_description}
+                  onClick={() => handleImageClick(photo.id)}
+                />
+              </div>
+            ))}
       </GalleryContainer>
     );
   }

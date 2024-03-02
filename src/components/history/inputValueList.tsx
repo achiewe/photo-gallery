@@ -2,24 +2,34 @@
 // import { SearchDataType } from "../../../type";
 import { useGalleryStore } from "../../store";
 import styled from "styled-components";
+import PhotoesDataList from "./PhotoesDataList";
+import { useState } from "react";
 
 interface inputListProps {
-  queryKeyData: (string | number)[];
+  queryKeyData: string[];
 }
 
 export default function InputList({ queryKeyData }: inputListProps) {
   // const inputValue = useGalleryStore((state) => state.inputValue);
-  // const queryClient = useQueryClient();
+
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
-  // Accessing the data using the query key
-  // const queryData = queryClient.getQueryData(["photos", inputValue]);
+  const [selectedInputIndex, setSelectedInputIndex] = useState<number | null>(
+    null
+  );
+
+  const handleClick = (index: number) => {
+    setSelectedInputIndex(selectedInputIndex === index ? null : index);
+  };
 
   return (
     <ListContainer>
-      {inputValueArray.map((inputText: any, index: any) => (
-        <ul key={index}>
+      {inputValueArray.map((inputText, index) => (
+        <ul key={index} onClick={() => handleClick(index)}>
           <li>{inputText}</li>
+          {selectedInputIndex === index && (
+            <PhotoesDataList inputText={inputText} />
+          )}
           <hr />
         </ul>
       ))}
