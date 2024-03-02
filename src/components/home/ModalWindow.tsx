@@ -1,14 +1,63 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
 import likePng from "../../../public/assets/like.png";
 import ViewPng from "../../../public/assets/view.png";
 import downoloadPng from "../../../public/assets/download.png";
 import closePng from "../../../public/assets/close.png";
+const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
+
+interface PhotoStats {
+  id: string;
+  downloads: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+  likes: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+  slug: string;
+  views: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+}
 
 export default function ModalWindow() {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
+  const [photoStats, setPhotoStats] = useState<PhotoStats | null>(null);
+
+  console.log(photoStats?.downloads);
+
+  useEffect(() => {
+    const fetchPhotoStatistics = async () => {
+      try {
+        const photoId = filteredImages[0]?.id;
+        const response = await axios.get(
+          `https://api.unsplash.com/photos/${photoId}/statistics`,
+          {
+            headers: { Authorization: `Client-ID ${accessKey}` },
+          }
+        );
+        setPhotoStats(response.data);
+      } catch (error) {
+        console.error("Error fetching photo statistics:", error);
+      }
+    };
+
+    if (filteredImages[0]?.id) {
+      fetchPhotoStatistics();
+    }
+  }, [filteredImages]);
+
+  if (!filteredImages[0]?.id) {
+    return null; // Render nothing if filteredImages[0].id does not exist
+  }
+
   return (
     <ModalContainer filteredImages={filteredImages}>
       <div className="imageDataContainer">
@@ -27,11 +76,11 @@ export default function ModalWindow() {
         />
         <div className="InfoDiv">
           <img className="likeViewDownPng" src={likePng} alt="like png" />
-          <h2>likes: {filteredImages[0]?.likes}</h2>
+          {/* <h2>Likes: {photoStats[0].likes.total}</h2> */}
         </div>
         <div className="InfoDiv">
           <img className="likeViewDownPng" src={ViewPng} alt="view png" />
-          <h2>Views: {filteredImages[0]?.likes}</h2>
+          {/* <h2>Views: {photoStats?.views?.total}</h2> */}
         </div>
         <div className="InfoDiv">
           <img
@@ -39,7 +88,7 @@ export default function ModalWindow() {
             src={downoloadPng}
             alt="download png"
           />
-          <h2>Downloads: {filteredImages[0]?.likes}</h2>
+          {/* <h2>Downloads: {photoStats?.downloads?.total}</h2> */}
         </div>
       </div>
     </ModalContainer>

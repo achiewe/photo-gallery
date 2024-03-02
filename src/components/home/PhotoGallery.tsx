@@ -13,7 +13,9 @@ export default function PhotoGallery({
 }: PhotoGalleryProps): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
+  const filteredImages = useGalleryStore((state) => state.filteredImages);
 
+  console.log(filteredImages, "gapiltruli image");
   // Declare searchData
   // const searchData = photoes.results || [];
 

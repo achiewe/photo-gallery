@@ -24,56 +24,52 @@ export default function Home({
   const setPage = useGalleryStore((state) => state.setPage);
   const loading = useGalleryStore((state) => state.loading);
   const setLoading = useGalleryStore((state) => state.setLoading);
-  // const filteredImages = useGalleryStore((state) => state.filteredImages);
 
   useEffect(() => {
+    // Define fetchImages function inside useEffect to avoid warnings
+    const fetchImages = async (page: number, perPage: number) => {
+      try {
+        setLoading(true);
+
+        const response = await axios.get(
+          `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
+        );
+
+        const newPhotos = response.data.filter((photo: SearchDataType) => {
+          return !fetchPhotoes.some(
+            (existingPhoto: SearchDataType) => existingPhoto.id === photo.id
+          );
+        });
+
+        setFetchPhotoes([...fetchPhotoes, ...newPhotos]);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const handleScroll = () => {
+      const { scrollTop, clientHeight, scrollHeight } =
+        document.documentElement;
+      const bottomThreshold = 100;
+
+      if (
+        scrollTop + clientHeight > scrollHeight - bottomThreshold &&
+        !loading
+      ) {
+        setPage(page + 1);
+      }
+    };
+
+    // Call fetchImages when page changes
     fetchImages(page, perPage);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [page]); // Effect runs only once on component mount
-
-  const fetchImages = async (page: number, perPage: number) => {
-    try {
-      setLoading(true);
-
-      const response = await axios.get(
-        `https://api.unsplash.com/photos/?client_id=${accessKey}&order_by=popular&page=${page}&per_page=${perPage}`
-      );
-
-      // Filter out duplicates before updating state
-      const newPhotos = response.data.filter((photo: SearchDataType) => {
-        // Check if any existing photo has the same id as the new photo
-        return !fetchPhotoes.some(
-          (existingPhoto: SearchDataType) => existingPhoto.id === photo.id
-        );
-      });
-
-      console.log("New photos length:", newPhotos.length);
-
-      // Append new photos to existing photos
-      setFetchPhotoes([...fetchPhotoes, ...newPhotos]);
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  console.log(page);
-
-  const handleScroll = () => {
-    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-
-    const bottomThreshold = 100;
-
-    // Check if user has scrolled to the bottom of the page
-    if (scrollTop + clientHeight > scrollHeight - bottomThreshold && !loading) {
-      setPage(page + 1); // Increment the page state to fetch next page of images
-    }
-  };
+  }, [page, perPage]); // Run effect when page or perPage changes
 
   return (
     <HomeContainer>

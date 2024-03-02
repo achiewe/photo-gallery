@@ -44,3 +44,20 @@ export interface SearchDataType {
   };
   width: number;
 }
+
+export interface photoStatsType {
+  id: string;
+  downloads: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+  likes: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+  slug: string;
+  views: {
+    total: number;
+    historical: Record<string, unknown>; // Define the structure of historical if needed
+  };
+}
