@@ -2,7 +2,7 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../store";
 import InputList from "../components/history/inputValueList";
-import { SearchDataType } from "../../type";
+// import { SearchDataType } from "../../type";
 
 interface HistoryProps {
   queryKeyData: (string | number)[];

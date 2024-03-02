@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { ChangeEvent } from "react";
 import { SearchDataType } from "../../../type";
-import { useQueryClient } from "react-query";
+// import { useQueryClient } from "react-query";
 
 interface InputFieldProps {
   queryKeyData: (string | number)[];

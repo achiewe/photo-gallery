@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
-import { useQueryClient } from "react-query";
+// import { useQueryClient } from "react-query";
 
 interface PhotoGalleryProps {
   queryPhotoes: SearchDataType[];

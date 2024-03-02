@@ -15,14 +15,10 @@ const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 function App(): JSX.Element {
   const [pageQuery, setPageQuery] = useState<number>(1);
   const [loading, setLoading] = useState(false);
-  const [perPageQuery, setPerPageQuery] = useState<number>(20);
+  const [perPageQuery] = useState<number>(20);
 
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const inputValue = useGalleryStore((state) => state.inputValue);
-
-  const setInputValueArray = useGalleryStore(
-    (state) => state.setInputValueArray
-  );
 
   const queryKey = ["photos", inputValue, pageQuery];
   console.log(queryKey, "mevar querykey");
