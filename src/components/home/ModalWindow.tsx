@@ -15,8 +15,6 @@ export default function ModalWindow() {
   const [photoStats, setPhotoStats] = useState<photoStatsType | null>(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(photoStats);
-
   useEffect(() => {
     const fetchPhotoStatistics = async () => {
       try {
@@ -62,7 +60,7 @@ export default function ModalWindow() {
           sizes="(max-width: 768px) 375px, 768px"
         />
         {loading ? (
-          <h3>Loading...</h3>
+          <h2>Loading...</h2>
         ) : (
           <>
             <div className="InfoDiv">
