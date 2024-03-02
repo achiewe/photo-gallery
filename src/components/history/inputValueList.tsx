@@ -3,12 +3,11 @@ import { useGalleryStore } from "../../store";
 import styled from "styled-components";
 
 interface inputListProps {
-  queryPhotoes: SearchDataType[];
+  queryKeyData: string[];
 }
 
-export default function inputList({ queryPhotoes }: inputListProps) {
+export default function inputList({ queryKeyData }: inputListProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
-  console.log(inputValueArray);
 
   return (
     <ListContainer>

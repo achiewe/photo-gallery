@@ -9,6 +9,7 @@ import { useGalleryStore } from "./store";
 import { SearchDataType } from "../type";
 import axios from "axios";
 import { useQuery } from "react-query";
+import { useEffect } from "react";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
@@ -16,12 +17,16 @@ function App(): JSX.Element {
   const inputValue = useGalleryStore((state) => state.inputValue);
   const page = useGalleryStore((state) => state.page);
   const perPage = useGalleryStore((state) => state.perPage);
+  const setInputValueArray = useGalleryStore(
+    (state) => state.setInputValueArray
+  );
 
   filteredImages.length > 0
     ? (document.body.style.overflow = "hidden")
     : (document.body.style.overflow = "auto");
 
   const queryKey = ["photos", inputValue]; // Include inputValue in queryKey
+  console.log(queryKey, "mevar querykey");
   const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
     queryKey,
 
@@ -53,15 +58,12 @@ function App(): JSX.Element {
           <Route
             path="/"
             element={
-              <Home
-                queryPhotoes={queryPhotoes}
-                photoesLoading={photoesLoading}
-              />
+              <Home queryKeyData={queryKey} photoesLoading={photoesLoading} />
             }
           />
           <Route
             path="/History"
-            element={<History queryPhotoes={queryPhotoes} />}
+            element={<History queryKeyData={queryKey} />}
           />
         </Routes>
         <ModalWindow />

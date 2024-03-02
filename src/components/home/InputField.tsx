@@ -3,14 +3,15 @@ import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { ChangeEvent } from "react";
 import { SearchDataType } from "../../../type";
+import { useQueryClient } from "react-query";
 
 interface InputFieldProps {
-  queryPhotoes: SearchDataType[];
+  queryKeyData: string[];
   photoesLoading: boolean;
 }
 
 export default function InputField({
-  queryPhotoes,
+  queryKeyData,
   photoesLoading,
 }: InputFieldProps) {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
@@ -23,8 +24,14 @@ export default function InputField({
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
   console.log("inputValueArray:", inputValueArray);
 
-  console.log("queryPhotoes outside of the function:", queryPhotoes);
+  const queryClient = useQueryClient();
 
+  // // Get cached data using the query key
+  const cachedPhotos = queryClient.getQueryData(
+    queryKeyData
+  ) as SearchDataType[];
+
+  cons;
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -32,12 +39,10 @@ export default function InputField({
     if (timeoutId) {
       window.clearTimeout(timeoutId);
     }
-    console.log(queryPhotoes, "settimeotis garet");
 
     // Set a new timeout to trigger the search after 2000 milliseconds
     const newTimeoutId = window.setTimeout(() => {
-      console.log("queryPhotoes inside of the function:", queryPhotoes);
-      if (value.trim() !== "" && queryPhotoes && !photoesLoading) {
+      if (value.trim() !== "" && cachedPhotos && !cachedPhotos) {
         setInputValueArray({ inputValue: value, queryPhotoes });
       }
     }, 2000);

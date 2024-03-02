@@ -9,12 +9,12 @@ import { SearchDataType } from "../../type";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 interface HomeProps {
-  queryPhotoes: SearchDataType[];
+  queryKeyData: string[];
   photoesLoading: boolean;
 }
 
 export default function Home({
-  queryPhotoes,
+  queryKeyData,
   photoesLoading,
 }: HomeProps): JSX.Element {
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
@@ -73,9 +73,9 @@ export default function Home({
 
   return (
     <HomeContainer>
-      <InputField queryPhotoes={queryPhotoes} photoesLoading={photoesLoading} />
+      <InputField queryKeyData={queryKeyData} photoesLoading={photoesLoading} />
       <PhotoGallery
-        queryPhotoes={queryPhotoes}
+        queryKeyData={queryKeyData}
         photoesLoading={photoesLoading}
       />
       {loading && <Loading>Loading...</Loading>}

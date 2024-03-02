@@ -1,22 +1,31 @@
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
+import { useQueryClient } from "react-query";
 
 interface PhotoGalleryProps {
-  queryPhotoes: SearchDataType[];
+  queryKeyData: string[];
   photoesLoading: boolean;
 }
 
 export default function PhotoGallery({
-  queryPhotoes,
+  queryKeyData,
   photoesLoading,
 }: PhotoGalleryProps): JSX.Element {
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
 
+  const queryClient = useQueryClient();
+
+  // Get cached data using the query key
+  const cachedData = queryClient.getQueryData<SearchDataType[] | undefined>(
+    queryKeyData
+  );
+  console.log(cachedData, "mevarcached");
+
   const handleImageClick = (identifier: string) => {
-    if (queryPhotoes && queryPhotoes.length > 0) {
-      const filteredSearchData = queryPhotoes.filter(
+    if (cachedData && cachedData.length > 0) {
+      const filteredSearchData = cachedData.filter(
         (photo: SearchDataType) => photo.id === identifier
       );
       setFilteredImages(filteredSearchData);
@@ -33,7 +42,7 @@ export default function PhotoGallery({
     return <div>Loading...</div>;
   }
 
-  if (!queryPhotoes) {
+  if (!cachedData) {
     return (
       <GalleryContainer>
         {fetchPhotoes.map((photo: SearchDataType, index: number) => (
@@ -53,7 +62,7 @@ export default function PhotoGallery({
 
   return (
     <GalleryContainer>
-      {queryPhotoes.map((photo: SearchDataType, index: number) => (
+      {cachedData?.map((photo: SearchDataType, index: number) => (
         <div key={index} className="imageContainer">
           <img
             src={photo.urls.thumb}
