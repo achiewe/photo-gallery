@@ -58,7 +58,11 @@ function App(): JSX.Element {
           <Route
             path="/"
             element={
-              <Home queryKeyData={queryKey} photoesLoading={photoesLoading} />
+              <Home
+                queryKeyData={queryKey}
+                photoesLoading={photoesLoading}
+                queryPhotoes={queryPhotoes}
+              />
             }
           />
           <Route

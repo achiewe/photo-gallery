@@ -1,7 +1,7 @@
 // History.js
 import styled from "styled-components";
 import { useGalleryStore } from "../store";
-import InputList from "../components/history/inputValueList"; // Import the component with correct casing
+import InputList from "../components/history/inputValueList";
 import { SearchDataType } from "../../type";
 
 interface HistoryProps {

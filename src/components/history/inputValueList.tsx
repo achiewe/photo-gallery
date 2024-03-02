@@ -6,17 +6,17 @@ interface inputListProps {
   queryKeyData: string[];
 }
 
-export default function inputList({ queryKeyData }: inputListProps) {
+export default function InputList({ queryKeyData }: inputListProps) {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (
     <ListContainer>
-      {/* {inputValueArray.map((inputText, index) => (
+      {queryKeyData.map((inputText: any, index: any) => (
         <ul key={index}>
           <li>{inputText}</li>
           <hr />
         </ul>
-      ))} */}
+      ))}
     </ListContainer>
   );
 }

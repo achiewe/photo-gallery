@@ -7,12 +7,12 @@ import { useQueryClient } from "react-query";
 
 interface InputFieldProps {
   queryKeyData: string[];
-  photoesLoading: boolean;
+  queryPhotoes: SearchDataType[];
 }
 
 export default function InputField({
   queryKeyData,
-  photoesLoading,
+  queryPhotoes,
 }: InputFieldProps) {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const inputValue = useGalleryStore((state) => state.inputValue);
@@ -21,17 +21,10 @@ export default function InputField({
     (state) => state.setInputValueArray
   );
 
+  console.log(queryKeyData);
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
   console.log("inputValueArray:", inputValueArray);
 
-  const queryClient = useQueryClient();
-
-  // // Get cached data using the query key
-  const cachedPhotos = queryClient.getQueryData(
-    queryKeyData
-  ) as SearchDataType[];
-
-  cons;
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
 
@@ -42,8 +35,9 @@ export default function InputField({
 
     // Set a new timeout to trigger the search after 2000 milliseconds
     const newTimeoutId = window.setTimeout(() => {
-      if (value.trim() !== "" && cachedPhotos && !cachedPhotos) {
-        setInputValueArray({ inputValue: value, queryPhotoes });
+      if (value.trim() !== "") {
+        // Update inputValueArray with the current inputValue
+        setInputValueArray({ inputValue: value });
       }
     }, 2000);
 

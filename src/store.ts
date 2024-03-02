@@ -4,7 +4,7 @@ import { SearchDataType } from "../type";
 type galleryStore = {
   fetchPhotoes: SearchDataType[];
   inputValue: string;
-  inputValueArray: { [key: string]: SearchDataType[] };
+  inputValueArray: string[];
   page: number;
   perPage: number;
   filteredImages: SearchDataType[];
@@ -13,10 +13,7 @@ type galleryStore = {
   setPerPage: (newPage: number) => void;
   setLoading: (newLoading: boolean) => void;
   setPage: (newPage: number) => void;
-  setInputValueArray: (data: {
-    inputValue: string;
-    queryPhotoes: SearchDataType[];
-  }) => void;
+  setInputValueArray: (data: { inputValue: string }) => void;
   setInputValue: (newValue: string) => void;
   setFetchPhotoes: (newPhotoes: SearchDataType[]) => void;
 };
@@ -28,8 +25,7 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   page: 1,
   perPage: 20,
   loading: false,
-  inputValueArray: {},
-
+  inputValueArray: [],
   setPerPage: (newPage: number) => {
     set({ perPage: newPage });
   },
@@ -42,17 +38,10 @@ export const useGalleryStore = create<galleryStore>((set) => ({
   setPage: (newPage: number) => {
     set({ page: newPage });
   },
-  setInputValueArray: ({ inputValue, queryPhotoes }) => {
-    // Update queryPhotoes here if needed
-    // For example, you could perform some manipulation or checks on queryPhotoes
-
+  setInputValueArray: ({ inputValue }) => {
     if (inputValue.trim() !== "") {
-      console.log(queryPhotoes, "mevars state query");
       set((state) => ({
-        inputValueArray: {
-          ...state.inputValueArray,
-          [inputValue]: queryPhotoes,
-        },
+        inputValueArray: [...state.inputValueArray, inputValue], // Add inputValue to the array
       }));
     }
   },
