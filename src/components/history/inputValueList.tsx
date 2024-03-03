@@ -6,10 +6,12 @@ import { useState } from "react";
 export default function InputList() {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
+  // State variable for selected input index
   const [selectedInputIndex, setSelectedInputIndex] = useState<number | null>(
     null
   );
 
+  // Function to handle click on input item
   const handleClick = (index: number) => {
     setSelectedInputIndex(selectedInputIndex === index ? null : index);
   };
@@ -32,6 +34,7 @@ export default function InputList() {
   );
 }
 
+// Styled container for InputList component
 const ListContainer = styled.div`
   width: 100%;
   display: flex;

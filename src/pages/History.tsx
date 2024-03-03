@@ -3,6 +3,7 @@ import { useGalleryStore } from "../store";
 import InputList from "../components/history/inputValueList";
 
 export default function History() {
+  // Accessing input value array from custom store
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (

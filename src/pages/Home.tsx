@@ -5,18 +5,22 @@ import PhotoGallery from "../components/home/PhotoGallery";
 import InputField from "../components/home/InputField";
 import { useGalleryStore } from "../store";
 import { SearchDataType } from "../../type";
+import { InfiniteData } from "react-query";
 
+// Fetching access key from environment variables
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
+// Interface defining props for Home component
 interface HomeProps {
   photoesLoading: boolean;
-  queryPhotoes: SearchDataType[];
+  queryPhotoes: InfiniteData<SearchDataType[]> | undefined;
 }
 
 export default function Home({
   queryPhotoes,
   photoesLoading,
 }: HomeProps): JSX.Element {
+  // Accessing state and setter functions from custom store
   const setFetchPhotoes = useGalleryStore((state) => state.setFetchPhotoes);
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const page = useGalleryStore((state) => state.page);
@@ -25,8 +29,8 @@ export default function Home({
   const loading = useGalleryStore((state) => state.loading);
   const setLoading = useGalleryStore((state) => state.setLoading);
 
+  // Effect for fetching images and handling pagination
   useEffect(() => {
-    // Define fetchImages function inside useEffect to avoid warnings
     const fetchImages = async (page: number, perPage: number) => {
       try {
         setLoading(true);
@@ -41,6 +45,7 @@ export default function Home({
           );
         });
 
+        // Update state with new fetched images
         setFetchPhotoes([...fetchPhotoes, ...newPhotos]);
       } catch (error) {
         console.error("Error fetching images:", error);
@@ -49,6 +54,7 @@ export default function Home({
       }
     };
 
+    // Scroll event handler for pagination
     const handleScroll = () => {
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
@@ -71,6 +77,7 @@ export default function Home({
     };
   }, [page, perPage]); // Run effect when page or perPage changes
 
+  console.log(fetchPhotoes);
   return (
     <HomeContainer>
       <InputField />

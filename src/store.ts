@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { SearchDataType } from "../type";
 
+// Zustand Store Definition
 type galleryStore = {
   fetchPhotoes: SearchDataType[];
   inputValue: string;
@@ -18,6 +19,7 @@ type galleryStore = {
   setFetchPhotoes: (newPhotoes: SearchDataType[]) => void;
 };
 
+// Gallery Store Initialization
 export const useGalleryStore = create<galleryStore>((set) => ({
   fetchPhotoes: [],
   inputValue: "",

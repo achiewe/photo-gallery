@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Header() {
+  // Getting current pathname
   const pathname = window.location.pathname;
   useNavigate();
   return (

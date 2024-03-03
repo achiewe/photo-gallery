@@ -8,61 +8,66 @@ import ModalWindow from "./components/home/ModalWindow";
 import { useGalleryStore } from "./store";
 import { SearchDataType } from "../type";
 import axios from "axios";
-import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useInfiniteQuery } from "react-query";
+import { useEffect } from "react";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
-  const [pageQuery, setPageQuery] = useState<number>(1);
-  const [loading, setLoading] = useState(false);
-  const [perPageQuery] = useState<number>(20);
-
+  // Fetching filtered images and input value from custom store
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const inputValue = useGalleryStore((state) => state.inputValue);
 
-  console.log(pageQuery);
-  const queryKey = ["photos", inputValue];
-  console.log(queryKey, "mevar querykey");
-  const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
-    queryKey,
-    async () => {
-      try {
-        if (inputValue !== "") {
-          setLoading(true);
-          const response = await axios.get(
-            `https://api.unsplash.com/search/photos/?client_id=${accessKey}&page=${pageQuery}&per_page=${perPageQuery}&query=${inputValue}`,
-            {
-              headers: { Authorization: `${accessKey}` },
-            }
-          );
-
-          return response.data.results;
+  // Fetching photos based on input value using react-query
+  const fetchPhotos = async ({ pageParam = 1 }) => {
+    try {
+      const response = await axios.get(
+        `https://api.unsplash.com/search/photos/?client_id=${accessKey}&page=${pageParam}&per_page=20&query=${inputValue}`,
+        {
+          headers: { Authorization: `${accessKey}` },
         }
-      } catch (error) {
-        console.error("Error fetching photos:", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
-    }
-  );
+      );
 
+      return response.data.results;
+    } catch (error) {
+      console.error("Error fetching photos:", error);
+      throw error;
+    }
+  };
+
+  // Query key for useInfiniteQuery hook
+  const queryKey = ["photos", inputValue];
+
+  // Fetching photos using infinite query
+  const {
+    data: queryPhotoes,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: photoesLoading,
+  } = useInfiniteQuery(queryKey, fetchPhotos, {
+    getNextPageParam: (lastPage, allPages) => {
+      // If there are no more pages, return undefined
+      if (lastPage.length < 20) return;
+
+      // Otherwise, return the next page number
+      return allPages.length + 1;
+    },
+  });
+
+  // Effect for infinite scroll pagination
   useEffect(() => {
     const handleScroll = () => {
       const { scrollTop, clientHeight, scrollHeight } =
         document.documentElement;
       const bottomThreshold = 100;
 
-      console.log("scrollTop:", scrollTop);
-      console.log("clientHeight:", clientHeight);
-      console.log("scrollHeight:", scrollHeight);
-
       if (
         scrollTop + clientHeight > scrollHeight - bottomThreshold &&
-        !loading
+        hasNextPage &&
+        !isFetchingNextPage
       ) {
-        // Increment pageQuery correctly
-        setPageQuery((prevPageQuery) => prevPageQuery + 1);
+        // Fetch the next page
+        fetchNextPage();
       }
     };
 
@@ -71,8 +76,9 @@ function App(): JSX.Element {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
 
+  // Rendering main application structure
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>
@@ -83,8 +89,8 @@ function App(): JSX.Element {
             path="/"
             element={
               <Home
-                photoesLoading={photoesLoading}
                 queryPhotoes={queryPhotoes}
+                photoesLoading={photoesLoading}
               />
             }
           />

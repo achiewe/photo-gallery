@@ -10,11 +10,15 @@ import closePng from "../../../public/assets/close.png";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 export default function ModalWindow() {
+  // Accessing filtered images and setter function from custom store
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
+
+  // State variables for photo statistics and loading state
   const [photoStats, setPhotoStats] = useState<photoStatsType | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Effect for fetching photo statistics
   useEffect(() => {
     const fetchPhotoStatistics = async () => {
       try {
@@ -33,12 +37,14 @@ export default function ModalWindow() {
       }
     };
 
+    // Check if there's a photo ID available before fetching statistics
     if (filteredImages[0]?.id) {
-      setLoading(true); // Set loading to true before fetching
+      setLoading(true);
       fetchPhotoStatistics();
     }
   }, [filteredImages]);
 
+  // If no image is selected, return null
   if (!filteredImages[0]?.id) {
     return null;
   }
