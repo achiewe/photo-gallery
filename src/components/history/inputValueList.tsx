@@ -12,12 +12,14 @@ export default function InputList() {
     null
   );
 
+  console.log(selectedInputIndex);
+
   const handleClick = (index: number) => {
     setSelectedInputIndex(selectedInputIndex === index ? null : index);
   };
 
   return (
-    <ListContainer>
+    <ListContainer selectedInputIndex={selectedInputIndex}>
       {inputValueArray.map((inputText, index) => (
         <div key={index} className="UlPhotoDataDiv">
           <ul onClick={() => handleClick(index)}>
@@ -34,7 +36,7 @@ export default function InputList() {
   );
 }
 
-const ListContainer = styled.div`
+const ListContainer = styled.div<{ selectedInputIndex: number | null }>`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -52,10 +54,6 @@ const ListContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    ul:focus {
-      background-color: #d9d9d9;
-    }
-
     ul:hover {
       background-color: #d9d9d9;
     }
@@ -66,6 +64,8 @@ const ListContainer = styled.div`
       flex-direction: column;
       align-items: center;
       padding-top: 10px;
+      background-color: ${(props) =>
+        props.selectedInputIndex === 0 ? "#d9d9d9" : ""};
       gap: 10px;
       cursor: pointer;
 
