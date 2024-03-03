@@ -9,13 +9,11 @@ import { SearchDataType } from "../../type";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 interface HomeProps {
-  queryKeyData: string[];
   photoesLoading: boolean;
   queryPhotoes: SearchDataType[];
 }
 
 export default function Home({
-  queryKeyData,
   queryPhotoes,
   photoesLoading,
 }: HomeProps): JSX.Element {
@@ -75,7 +73,7 @@ export default function Home({
 
   return (
     <HomeContainer>
-      <InputField queryKeyData={queryKeyData} queryPhotoes={queryPhotoes} />
+      <InputField />
       <PhotoGallery
         queryPhotoes={queryPhotoes}
         photoesLoading={photoesLoading}

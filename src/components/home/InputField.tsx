@@ -2,18 +2,8 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { ChangeEvent } from "react";
-import { SearchDataType } from "../../../type";
-// import { useQueryClient } from "react-query";
 
-interface InputFieldProps {
-  queryKeyData: (string | number)[];
-  queryPhotoes: SearchDataType[];
-}
-
-export default function InputField({
-  queryKeyData,
-  queryPhotoes,
-}: InputFieldProps) {
+export default function InputField() {
   const [timeoutId, setTimeoutId] = useState<number | null>(null);
   const inputValue = useGalleryStore((state) => state.inputValue);
   const setInputValue = useGalleryStore((state) => state.setInputValue);
@@ -21,7 +11,6 @@ export default function InputField({
     (state) => state.setInputValueArray
   );
 
-  console.log(queryKeyData);
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
   console.log("inputValueArray:", inputValueArray);
 

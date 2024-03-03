@@ -1,15 +1,9 @@
-// import { useQueryClient } from "react-query";
-// import { SearchDataType } from "../../../type";
 import { useGalleryStore } from "../../store";
 import styled from "styled-components";
 import PhotoesDataList from "./PhotoesDataList";
 import { useState } from "react";
 
-interface inputListProps {
-  queryKeyData: string[];
-}
-
-export default function InputList({ queryKeyData }: inputListProps) {
+export default function InputList() {
   // const inputValue = useGalleryStore((state) => state.inputValue);
 
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);

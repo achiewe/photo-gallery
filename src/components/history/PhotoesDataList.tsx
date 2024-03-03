@@ -1,4 +1,4 @@
-import { QueryClient, useQueryClient } from "react-query";
+import { useQueryClient } from "react-query";
 import { SearchDataType } from "../../../type";
 import styled from "styled-components";
 

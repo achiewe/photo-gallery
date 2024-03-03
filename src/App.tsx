@@ -78,16 +78,12 @@ function App(): JSX.Element {
             path="/"
             element={
               <Home
-                queryKeyData={queryKey}
                 photoesLoading={photoesLoading}
                 queryPhotoes={queryPhotoes}
               />
             }
           />
-          <Route
-            path="/History"
-            element={<History queryKeyData={queryKey} />}
-          />
+          <Route path="/History" element={<History />} />
         </Routes>
         <ModalWindow />
         <div className="overlay"></div>

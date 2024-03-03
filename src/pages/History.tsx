@@ -1,14 +1,8 @@
-// History.js
 import styled from "styled-components";
 import { useGalleryStore } from "../store";
 import InputList from "../components/history/inputValueList";
-import { SearchDataType } from "../../type";
 
-interface HistoryProps {
-  queryKeyData: string[];
-}
-
-export default function History({ queryKeyData }: HistoryProps) {
+export default function History() {
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   return (
@@ -16,7 +10,7 @@ export default function History({ queryKeyData }: HistoryProps) {
       {Object.keys(inputValueArray).length === 0 ? (
         <p>History is empty</p>
       ) : (
-        <InputList queryKeyData={queryKeyData} />
+        <InputList />
       )}
     </MainCont>
   );
