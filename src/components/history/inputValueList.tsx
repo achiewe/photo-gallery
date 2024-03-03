@@ -52,13 +52,14 @@ const ListContainer = styled.div`
     justify-content: center;
     align-items: center;
 
+    ul:focus {
+      background-color: #d9d9d9;
+    }
+
     ul:hover {
       background-color: #d9d9d9;
     }
 
-    ul:focus {
-      background-color: #d9d9d9;
-    }
     ul {
       width: 100%;
       display: flex;
