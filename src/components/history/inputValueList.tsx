@@ -25,13 +25,16 @@ export default function InputList({ queryKeyData }: inputListProps) {
   return (
     <ListContainer>
       {inputValueArray.map((inputText, index) => (
-        <ul key={index} onClick={() => handleClick(index)}>
-          <li>{inputText}</li>
+        <div key={index} className="UlPhotoDataDiv">
+          <ul onClick={() => handleClick(index)}>
+            <li>{inputText}</li>
+            <hr />
+          </ul>
+
           {selectedInputIndex === index && (
             <PhotoesDataList inputText={inputText} />
           )}
-          <hr />
-        </ul>
+        </div>
       ))}
     </ListContainer>
   );
@@ -46,33 +49,46 @@ const ListContainer = styled.div`
   background-color: white;
   border-radius: 10px;
 
-  :hover {
-    background-color: #d9d9d9;
+  @media (min-width: 768px) {
+    width: 500px;
   }
 
-  ul {
+  .UlPhotoDataDiv {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    padding-top: 10px;
-    gap: 10px;
-    cursor: pointer;
 
-    li {
-      font-size: 16px;
-      font-weight: 600;
-      color: black;
-      list-style-type: none;
-      @media (min-width: 768px) {
-        font-size: 20px;
-      }
+    ul:hover {
+      background-color: #d9d9d9;
     }
 
-    hr {
+    ul:focus {
+      background-color: #d9d9d9;
+    }
+    ul {
       width: 100%;
-      border: 1px solid gray;
-      opacity: 0.3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 10px;
+      gap: 10px;
+      cursor: pointer;
+
+      li {
+        font-size: 16px;
+        font-weight: 600;
+        color: black;
+        list-style-type: none;
+        @media (min-width: 768px) {
+          font-size: 20px;
+        }
+      }
+
+      hr {
+        width: 100%;
+        border: 1px solid gray;
+        opacity: 0.3;
+      }
     }
   }
 `;

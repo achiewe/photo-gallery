@@ -1,5 +1,6 @@
 import { QueryClient, useQueryClient } from "react-query";
 import { SearchDataType } from "../../../type";
+import styled from "styled-components";
 
 interface PhotoesDataListProps {
   inputText: string;
@@ -10,7 +11,7 @@ export default function PhotoesDataList({ inputText }: PhotoesDataListProps) {
   const queryData: any = queryClient.getQueryData(["photos", inputText]);
 
   return (
-    <div>
+    <PhotoContainer>
       {queryData?.map((photo: SearchDataType, index: number) => (
         <div key={index} className="imageContainer">
           <img
@@ -21,6 +22,15 @@ export default function PhotoesDataList({ inputText }: PhotoesDataListProps) {
           />
         </div>
       ))}
-    </div>
+    </PhotoContainer>
   );
 }
+
+const PhotoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+`;

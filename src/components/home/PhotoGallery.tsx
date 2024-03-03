@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { useGalleryStore } from "../../store";
 import { SearchDataType } from "../../../type";
 import { useQueryClient } from "react-query";
-// import { useQueryClient } from "react-query";
 
 interface PhotoGalleryProps {
   queryPhotoes: SearchDataType[];
@@ -18,18 +17,10 @@ export default function PhotoGallery({
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   const queryClient = useQueryClient();
-
-  // const queryCatch = queryClient.getQueryCache();
-  // const cachedData = queryCatch.findAll();
-  // const lastCachedData =
-  //   cachedData.length > 0 ? cachedData[cachedData.length - 2] : null;
-
   const queryData: any = queryClient.getQueryData([
     "photos",
     inputValueArray[inputValueArray.length - 1],
   ]);
-
-  console.log(queryData, "queryDataa varr me me var queryData");
 
   const handleImageClick = (identifier: string) => {
     if (queryPhotoes && queryPhotoes.length > 0) {
@@ -55,7 +46,7 @@ export default function PhotoGallery({
       <GalleryContainer>
         {queryData === undefined
           ? fetchPhotoes.map((photo: SearchDataType, index: number) => (
-              <div key={index} className="imageContainer">
+              <div key={index}>
                 <img
                   src={photo.urls.thumb}
                   srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
@@ -66,7 +57,7 @@ export default function PhotoGallery({
               </div>
             ))
           : queryData.map((photo: SearchDataType, index: number) => (
-              <div key={index} className="imageContainer">
+              <div key={index}>
                 <img
                   src={photo.urls.thumb}
                   srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
@@ -83,7 +74,7 @@ export default function PhotoGallery({
   return (
     <GalleryContainer>
       {queryPhotoes?.map((photo: SearchDataType, index: number) => (
-        <div key={index} className="imageContainer">
+        <div key={index}>
           <img
             src={photo.urls.thumb}
             srcSet={`${photo.urls.thumb} 375w, ${photo.urls.small} 768w`}
