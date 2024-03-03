@@ -3,13 +3,13 @@ import styled from "styled-components";
 
 export default function Header() {
   const pathname = window.location.pathname;
-  const navigate = useNavigate();
+  useNavigate();
   return (
     <HeaderContainer pathname={pathname}>
-      <Link className="HomePath" to="/">
+      <Link className="HomeLink" to="/">
         Home
       </Link>
-      <Link className="HistoryPath" to="/History">
+      <Link className="HistoryLink" to="/History">
         History
       </Link>
     </HeaderContainer>
@@ -41,11 +41,11 @@ const HeaderContainer = styled.header<{ pathname: string }>`
     font-weight: 600;
   }
 
-  .HomePath {
+  .HomeLink {
     color: ${(props) => (props.pathname === "/" ? "#000000" : "")};
   }
 
-  .HistoryPath {
+  .HistoryLink {
     color: ${(props) => (props.pathname === "/History" ? "#000000" : "")};
   }
 
