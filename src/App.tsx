@@ -20,6 +20,7 @@ function App(): JSX.Element {
   const filteredImages = useGalleryStore((state) => state.filteredImages);
   const inputValue = useGalleryStore((state) => state.inputValue);
 
+  console.log(pageQuery);
   const queryKey = ["photos", inputValue];
   console.log(queryKey, "mevar querykey");
   const { data: queryPhotoes, isLoading: photoesLoading } = useQuery(
@@ -52,13 +53,16 @@ function App(): JSX.Element {
         document.documentElement;
       const bottomThreshold = 100;
 
+      console.log("scrollTop:", scrollTop);
+      console.log("clientHeight:", clientHeight);
+      console.log("scrollHeight:", scrollHeight);
+
       if (
         scrollTop + clientHeight > scrollHeight - bottomThreshold &&
         !loading
       ) {
-        // Increase the number of photos to be loaded
-
-        setPageQuery(pageQuery + 1);
+        // Increment pageQuery correctly
+        setPageQuery((prevPageQuery) => prevPageQuery + 1);
       }
     };
 
@@ -67,7 +71,7 @@ function App(): JSX.Element {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [perPageQuery, pageQuery, queryPhotoes]);
+  }, []);
 
   return (
     <Router>
