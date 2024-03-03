@@ -4,22 +4,18 @@ import PhotoesDataList from "./PhotoesDataList";
 import { useState } from "react";
 
 export default function InputList() {
-  // const inputValue = useGalleryStore((state) => state.inputValue);
-
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
 
   const [selectedInputIndex, setSelectedInputIndex] = useState<number | null>(
     null
   );
 
-  console.log(selectedInputIndex);
-
   const handleClick = (index: number) => {
     setSelectedInputIndex(selectedInputIndex === index ? null : index);
   };
 
   return (
-    <ListContainer selectedInputIndex={selectedInputIndex}>
+    <ListContainer>
       {inputValueArray.map((inputText, index) => (
         <div key={index} className="UlPhotoDataDiv">
           <ul onClick={() => handleClick(index)}>
@@ -36,7 +32,7 @@ export default function InputList() {
   );
 }
 
-const ListContainer = styled.div<{ selectedInputIndex: number | null }>`
+const ListContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -64,8 +60,6 @@ const ListContainer = styled.div<{ selectedInputIndex: number | null }>`
       flex-direction: column;
       align-items: center;
       padding-top: 10px;
-      background-color: ${(props) =>
-        props.selectedInputIndex === 0 ? "#d9d9d9" : ""};
       gap: 10px;
       cursor: pointer;
 
