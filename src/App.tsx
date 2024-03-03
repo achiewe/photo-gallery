@@ -9,7 +9,7 @@ import { useGalleryStore } from "./store";
 import { SearchDataType } from "../type";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const accessKey = import.meta.env.VITE_REACT_APP_ACCESS_KEY;
 
 function App(): JSX.Element {
@@ -68,6 +68,7 @@ function App(): JSX.Element {
       window.removeEventListener("scroll", handleScroll);
     };
   }, [perPageQuery, pageQuery, queryPhotoes]);
+
   return (
     <Router>
       <MainContainer filteredImages={filteredImages}>

@@ -1,30 +1,39 @@
-# React + TypeScript + Vite
+## Table of contents
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshot](#screenshot)
+  - [Links](#links)
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [What I learned](#what-i-learned)
+- [Author](#author)
 
-Currently, two official plugins are available:
+### Screenshot
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![](./public/assets/preview.png)
 
-## Expanding the ESLint configuration
+### Links
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- Live Site URL: [https://photo-gallery-wine.vercel.app/]
 
-- Configure the top-level `parserOptions` property like this:
+## My process
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Built with
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Semantic HTML5 markup
+- CSS custom properties
+- Flexbox
+- Mobile-first workflow
+- Zustand
+- [React](https://reactjs.org/) - JS library
+- [Styled Components](https://styled-components.com/) - For styles
+
+### What I learned
+
+this React project centers around a dynamic photo gallery feature. the primary functionalities include fetching photos from a designated gallery and displaying them on the page. moreover, the implementation incorporates an infinite scroll feature, ensuring a seamless experience for users. upon reaching the end of the page, an additional set of 20 photos are dynamically loaded, allowing continuous browsing.i am proficient in fetching and dynamically displaying data within a React application. i have mastered react's advanced features such as infinite scroll implementation and dynamic filtering functionality. furthermore, i possess a strong understanding of effective state management techniques using Zustand, which enhances the scalability and maintainability of the application. additionally, i have acquired skills in API integration to fetch and display detailed insights for individual photo items, contributing to a more engaging user experience.
+
+## Author
+
+- Github - [achiewe](https://github.com/achiewe)
+- LinkedIn - [achi mamukashvili](https://www.linkedin.com/in/achi-mamukashvili-721928263/)

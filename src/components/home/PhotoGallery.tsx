@@ -15,7 +15,6 @@ export default function PhotoGallery({
   const fetchPhotoes = useGalleryStore((state) => state.fetchPhotoes);
   const setFilteredImages = useGalleryStore((state) => state.setFilteredImages);
   const inputValueArray = useGalleryStore((state) => state.inputValueArray);
-
   const queryClient = useQueryClient();
   const queryData: any = queryClient.getQueryData([
     "photos",
